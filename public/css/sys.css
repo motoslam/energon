@@ -1,0 +1,79 @@
+/* Дополнительные системные стили */
+/* начинаются с префикса sys- */
+
+/* Текст под заголовком формы авторизации */
+.sys-text-form {
+    font-weight: 400;
+    text-align: center;
+    color: #000000;
+    /*max-width: 320px;*/
+    margin: 0 auto 23px;
+    font-size: 12px;
+    line-height: 150%;
+}
+
+/* Убрать синий фон у фото пользователя */
+.sys-profile-image {
+    background: transparent;
+}
+
+/* Запрет выделения */
+.sys-no-select{
+    user-select: none;
+}
+
+/* Новый класс для кнопки в хедере, потому что к старому привязан JS */
+.sys-header-button {
+    margin-right: 16px;
+    display: block;
+    max-width: 168px;
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #E1E1E1;
+    box-sizing: border-box;
+    border-radius: 10px;
+    text-align: center;
+    flex-shrink: 0;
+    padding: 4px 0 8px 0;
+}
+
+.sys-header-button span {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 100%;
+    color: #424552;
+    margin-right: 12px;
+}
+
+.sys-header-button img {
+    display: inline-block;
+}
+
+.content-box__top-line .sys-header-button {
+    max-width: 198px;
+    width: 100%;
+    margin-left: 43px;
+}
+
+.sys-company-not-found{
+    color: #ababab !important;
+    font-size: 12px;
+    padding: 26px 36px;
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 21px;
+    transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    -o-transition: all .2s linear;
+}
+
+.sys-company-not-found:hover{
+    -webkit-box-shadow: 0px 13px 28px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 13px 28px rgba(0, 0, 0, 0.05);
+}
+
+.sys-admin-link{
+    border-top: 1px solid #E1E1E1;
+}
