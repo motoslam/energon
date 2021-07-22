@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Описание">
+    <meta name="keywords" content="Ключевые слова">
+    <link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="icon" sizes="16x16" href="img/favicon/favicon-16x16.png" type="image/png">
+    <link rel="icon" sizes="32x32" href="img/favicon/favicon-32x32.png" type="image/png">
+    <link rel="apple-touch-icon-precomposed" href="img/favicon/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon" href="img/favicon/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="img/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="img/favicon/apple-touch-icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="1024x1024" href="img/favicon/apple-touch-icon-1024x1024.png">
+    <link rel="stylesheet" href="css/vendor.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Энергон</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="header-box">
+                <a href="#" class="logo"><img src="img/logo.svg" alt=""></a>
+                <ul class="menu">
+                    <li><a href="#">Контрагенты</a></li>
+                    <li><a href="#">Планировщик</a></li>
+                    <li><a href="#">Статистика</a></li>
+                </ul>
+                <div class="profile">
+                    <div class="profile-name">
+                        <b>User Name</b>
+                        <span>description</span>
+                    </div>
+                    <div class="profile-image">
+                        <img src="img/logo.svg" alt="">
+                    </div>
+                    <div class="profile-hide">
+                        <a href="#" class="lk-link">Личный кабинет</a>
+                        <a href="#" class="settings-link">Настройки</a>
+                        <a href="#" class="note-link">Уведомления</a>
+                        <a href="#" class="log-out-link">Выход</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="content-box">
+            <img class="decor1" src="img/decor1.png" alt="">
+            <img class="decor2" src="img/decor2.png" alt="">
+
+            <div class="content-box__back-line">
+                <div class="container">
+                    <a href="#" class="back">Назад</a>
+                    <div class="form-contragent-top">
+                        <div class="title">Добавление контрагента</div>
+                        <div class="search">
+                            <input type="search" id="search" placeholder="Поиск" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-contragent-wrap">
+                <div class="container">
+
+                    <form action="/" class="contragent-form" method="post">
+                        <!-- <div class="message-contragent">
+                            <span>Контрагент занят</span>
+                            <div>
+                                <a href="#" class="btn-blue">Продолжить</a>
+                                <a href="#" class="btn-white">Отменить</a>
+                            </div>
+                        </div> -->
+                        <div class="btn-more-box">
+                            <div class="btn-el-items" style="opacity: 0;">
+                                <a href="#" class="btn-el btn-del"></a>
+                                <a href="#" class="btn-el btn-edit"></a>
+                            </div>
+                        </div>
+
+                        <div class="contragent-form__item contragent-form__item50">
+                            <label for="">Наименование организации</label>
+                            <input type="text">
+                        </div>
+                        <div class="contragent-form-box">
+
+                            <div class="contragent-form__item">
+                                <label for="">ИНН</label>
+                                <input type="text">
+                            </div>
+                            <div class="contragent-form__item">
+                                <label for="">Правовая форма</label>
+                                <input type="text">
+                            </div>
+                            <div class="contragent-form__item">
+                                <label for="">Город</label>
+                                <input type="text">
+                            </div>
+                            <div class="contragent-form__item">
+                                <label for="">Адрес</label>
+                                <input type="text">
+                            </div>
+                            <div class="contragent-form__item">
+                                <label for="">Тип клиента</label>
+                                <select name="" id="">
+                                    <option value="Тип клиента" disabled selected>Тип клиента</option>
+                                    <option value="ООО">ООО</option>
+                                    <option value="ОАО">ОАО</option>
+                                    <option value="ИП">ИП</option>
+                                </select>
+                            </div>
+                            <div class="contragent-form__item">
+                                <label for="">Тип закупки</label>
+                                <select name="" id="">
+                                    <option value="Тип закупки" disabled selected>Тип закупки</option>
+                                    <option value="ООО">ООО</option>
+                                    <option value="ОАО">ОАО</option>
+                                    <option value="ИП">ИП</option>
+                                </select>
+                            </div>
+                            <div class="contragent-form__item">
+                                <label for="">Статус клиента</label>
+                                <select name="" id="">
+                                    <option value="Статус клиента" disabled selected>Статус клиента</option>
+                                    <option value="ООО">ООО</option>
+                                    <option value="ОАО">ОАО</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                    <option value="ИП">ИП</option>
+                                </select>
+                            </div>
+                            <div class="contragent-form__item">
+                                <label for="">Потенциал клиента</label>
+                                <select name="" id="">
+                                    <option value="Потенциал клиента" disabled selected>Потенциал клиента</option>
+                                    <option value="ООО">ООО</option>
+                                    <option value="ОАО">ОАО</option>
+                                    <option value="ИП">ИП</option>
+                                </select>
+                            </div>
+                            <div class="contragent-form__item big">
+                                <label for="">Описание компании</label>
+                                <textarea name="" id="desc-comnpany"></textarea>
+                            </div>
+
+                            <div class="personal-form">
+                                <div class="personal-form__top">
+                                    <b>Сотрудник # 1</b>
+                                    <a href="javascript:void(0)" class="add-card"><span>Добавить сотрудника</span><i></i></a>
+                                </div>
+                                <div class="personal-box">
+                                    <div class="contragent-form__item">
+                                        <label for="">Должность</label>
+                                        <input type="text">
+                                    </div>
+                                    <div class="contragent-form__item">
+                                        <label for="">Имя</label>
+                                        <input type="text">
+                                    </div>
+                                    <div class="contragent-form__item">
+                                        <label for="">Фамилия</label>
+                                        <input type="text">
+                                    </div>
+                                    <div class="contragent-form__item">
+                                        <label for="">Отчество</label>
+                                        <input type="text">
+                                    </div>
+                                </div>
+
+                                <div class="personal-phones">
+                                    <div class="contragent-form__item">
+                                        <label for="">Рабочий телефон</label>
+                                        <input type="tel">
+                                    </div>
+                                    <div class="contragent-form__item">
+                                        <label for="">Рабочий телефон # 2</label>
+                                        <input type="tel">
+                                        <a href="#" class="remove"></a>
+                                    </div>
+                                    <a href="javascript:void(0)" class="add-card"><span>Добавить</span><i></i></a>
+                                </div>
+
+                                <div class="personal-mails">
+                                    <div class="contragent-form__item">
+                                        <label for="">Рабочий e-mail</label>
+                                        <input type="email">
+                                    </div>
+                                    <a href="javascript:void(0)" class="add-card"><span>Добавить</span><i></i></a>
+                                </div>
+                            </div>
+
+                            <div class="form-btns">
+                                <button type="submit" class="btn-blue" disabled>Добавить</button>
+                                <div class="message-form message-ok">Контрагент успешно добавлен</div>
+                                <div class="message-form message-error">Ошибка</div>
+                                <div class="message-form message-lock">Фирма занята</div>
+                                <!-- <div class="message-contragent" style="display: none;">
+                                    <span>Контрагент занят</span>
+                                    <div>
+                                        <a href="#" class="btn-blue">Продолжить</a>
+                                        <a href="#" class="btn-white">Отменить</a>
+                                    </div>
+                                </div> -->
+                            </div>
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container"></div>
+        </footer>
+
+        <div class="popup-wrap" id="popup-wrap-okay">
+            <div class="popup">
+                <img src="img/okay.svg" alt="">
+                <div class="title">Контрагент успешно добавлен</div>
+                <div class="popup-btns">
+                    <a href="#" class="btn-white">Добавить ещё</a>
+                    <a href="#" class="btn-blue">Ок</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup-wrap" id="popup-wrap-error">
+            <div class="popup">
+                <img src="img/error.svg" alt="">
+                <div class="title">Ошибка</div>
+                <div class="popup-btns">
+                    <a href="#" class="btn-blue">Вернуться на главную</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup-wrap" id="popup-wrap-lock">
+            <div class="popup">
+                <img src="img/lock.svg" alt="">
+                <div class="title">Фирма занята</div>
+                <div class="popup-btns">
+                    <a href="#" class="btn-blue">Вернуться на главную</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/vendor.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

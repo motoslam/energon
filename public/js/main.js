@@ -220,6 +220,18 @@ $('.new-event-box__top a').click(function(e) {
     $('.new-event-box').hide();
 });
 
+
+$('body').on('click', '.pass-show', function(e) {
+    e.preventDefault();
+    if ($(this).hasClass('active')) {
+        $(this).removeClass('active');
+        $('#user-auth-password').attr('type', 'password');
+    } else {
+        $(this).addClass('active');
+        $('#user-auth-password').attr('type', 'text');
+    }
+});
+
 $(window).on('load', function() {
 
     var widthLoad = $(window).width();
