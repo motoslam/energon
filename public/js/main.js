@@ -55,12 +55,12 @@ $(function() {
 
     });
 
-    $('#search').autocomplete({
+    /*$('#search').autocomplete({
         minChars: 2,
         maxHeight: 410,
         lookupLimit: 13,
         lookup: contractors
-    });
+    });*/
 
     $('.elem-item-list').each(function() {
         if ($(this).closest('.elem-item').attr('style') != 'display: none;') {
@@ -280,4 +280,3 @@ $(window).on('load resize', function() {
 
 
 });
-//# sourceMappingURL=../sourcemaps/main.js.map

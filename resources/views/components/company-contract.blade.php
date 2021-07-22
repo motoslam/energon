@@ -2,7 +2,7 @@
 
 <div class="elem-line">
     <div class="elem-line__content">
-        @if(!$company->contract->isEmpty())
+        @if($company->contract)
         <div>
             <span>№ Договора</span>
             <b>{{ $company->contract }}</b>
