@@ -12,10 +12,11 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sys.css') }}">
     <link rel="stylesheet" href="{{ asset('css/suggestions.css') }}" />
-    <title>{{ config('app.name') }}</title>
+    <livewire:styles />
+    <title>{{ $title ?? config('app.name') }}</title>
 </head>
 <body>
-<div class="wrapper {{ $wrapper_css ?? '' }}">
+<div class="wrapper {{ $wrapperCss ?? '' }}">
     @include('layouts.navigation')
 
     <div class="content-box">
@@ -28,6 +29,8 @@
 
 <script src="{{ asset('js/vendor.min.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
+<livewire:scripts />
+<script src="{{ asset('js/app.js') }}"></script>
 {{ $scripts ?? '' }}
 
 </body>

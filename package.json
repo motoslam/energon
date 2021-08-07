@@ -17,7 +17,16 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.2.1",
-        "postcss-import": "^12.0.1",
+        "postcss-import": "^14.0.1",
         "tailwindcss": "^2.0.2"
+    },
+    "dependencies": {
+        "air-datepicker": "^2.2.3",
+        "devbridge-autocomplete": "^1.4.11",
+        "inputmask": "^5.0.6",
+        "jquery": "^3.6.0",
+        "normalize.css": "^8.0.1",
+        "slick-carousel": "^1.8.1",
+        "sweetalert2": "^11.0.20"
     }
 }

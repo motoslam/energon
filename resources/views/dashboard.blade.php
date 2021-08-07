@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="Стартовая" wrapper_css="">
 
     <x-slot name="header">
         <div class="content-box__top-line">
@@ -28,10 +28,10 @@
 
                 @foreach($companies as $company)
                 <div class="table-tr">
-                    <div class="table-td">
+                    <a href="{{ route('companies.show', ['company' => $company]) }}" class="table-td">
                         <b>{{ $company->legal ?? '—' }}</b>
                         <span>{{ $company->name }}</span>
-                    </div>
+                    </a>
                     <div class="table-td">
                         <b>{{ $company->city->region->short_fd ?? '—' }}</b>
                         <span>{{ $company->city->name }}</span>

@@ -7,10 +7,10 @@
             <x-nav-link :href="route('dashboard')" :active="request()->routeIs(['dashboard', 'companies.*'])">
                 Контрагенты
             </x-nav-link>
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.*')">
                 Планировщик
             </x-nav-link>
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-nav-link :href="route('stats.index')" :active="request()->routeIs('stats.*')">
                 Статистика
             </x-nav-link>
         </ul>

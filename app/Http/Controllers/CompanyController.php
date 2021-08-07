@@ -15,51 +15,55 @@ use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
-    public function index()
+    public $templateData = [];
+
+    public function __construct()
     {
-        //
+        $this->templateData['companyTypes'] = CompanyType::all();
+        $this->templateData['companyPurchases'] = CompanyPurchase::all();
+        $this->templateData['companyStatuses'] = CompanyStatus::all();
+        $this->templateData['companyPotentialities'] = Potentiality::all();
+        $this->templateData['citiesList'] = City::all();
     }
 
+    public function index()
+    {
+        $this->templateData['companies'] = Auth::user()->companies;
+
+        return view('company.index', $this->templateData);
+    }
+
+    /**
+     * Проверка возможности добавления компании пользователю
+     * ---
+     * Параметры: объект пользователь и ИНН компании
+     * ---
+     * Возвращает JSON строку:
+     * company false - можно добавить компанию пользователю;
+     * company [ssn, name] - компания уже добавлена в систему.
+     */
     public function check(Request $request)
     {
-        $company = Company::where('ssn', $request->input('ssn'))->firstOr(['*'], function () {
-            return false;
-        });
+        $company = Company::where('ssn', $request->input('ssn'))
+            ->where('company_status_id', '<>', 5)->firstOr(['id', 'name', 'ssn'], function () {
+                return false;
+            });
 
-        if ($request->ajax()) {
-
-            $ajaxResult = response()->json([
-                'status' => true
-            ], 200);
-
-            if ($company) {
-                if ($company->user == Auth::user()) {
-                    $ajaxResult = response()->json([
-                        'status' => false,
-                        'message' => 'Организация ' . $company->name . ' уже есть в вашем списке'
-                    ], 200);
-                } else {
-                    $ajaxResult = response()->json([
-                        'status' => false,
-                        'confirmButton' => true,
-                        'message' => 'Организация ' . $company->name . ' уже добавлена другим менеджером. Продолжить?'
-                    ], 200);
-                }
-            }
-            return $ajaxResult;
-        } else {
-            return $company;
+        if($company && ($company->user_id == $request->user()->id)) {
+            $company = array_merge(
+                $company->toArray(),
+                ['url' => route('companies.show', ['company' => $company])]
+            );
         }
+
+        return response()->json([
+            'company' => $company
+        ], 200);
     }
 
     public function create()
     {
-        $data['companyTypes'] = CompanyType::all();
-        $data['companyPurchases'] = CompanyPurchase::all();
-        $data['companyStatuses'] = CompanyStatus::all();
-        $data['companyPotentialities'] = Potentiality::all();
-        $data['citiesList'] = City::all();
-        return view('company.create', $data);
+        return view('company.create', $this->templateData);
     }
 
     public function store(CompanyCreateRequest $request)
@@ -109,30 +113,23 @@ class CompanyController extends Controller
         return redirect()->route('companies.show', ['company' => $newCompany]);
     }
 
-    public function show($id)
+    public function show(Company $company)
     {
-        $company = Company::findOrFail($id);
+        $this->templateData['company'] = $company;
 
-        $companyStatuses = CompanyStatus::all();
-        $companyPotentialities = Potentiality::all();
-
-        return view('company.show', compact(
-            'company',
-            'companyStatuses',
-            'companyPotentialities'
-        ));
+        return view('company.show', $this->templateData);
     }
 
-    public function edit($id)
+    public function edit(Company $company)
     {
-        $company = Company::findOrFail($id);
+        $this->templateData['company'] = $company;
 
-        return view('company.edit');
+        return view('company.edit', $this->templateData);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Company $company)
     {
-        //
+
     }
 
     public function destroy($id)

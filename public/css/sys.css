@@ -1,6 +1,18 @@
 /* Дополнительные системные стили */
 /* начинаются с префикса sys- */
 
+[x-cloak] {
+    display: none;
+}
+
+.sys-hidden {
+    display: none;
+}
+
+.sys-pointer {
+    cursor: pointer;
+}
+
 /* Текст под заголовком формы авторизации */
 .sys-text-form {
     font-weight: 400;
@@ -18,7 +30,7 @@
 }
 
 /* Запрет выделения */
-.sys-no-select{
+.sys-no-select {
     user-select: none;
 }
 
@@ -55,7 +67,7 @@
     margin-left: 43px;
 }
 
-.sys-company-not-found{
+.sys-company-not-found {
     color: #ababab !important;
     font-size: 12px;
     padding: 26px 36px;
@@ -69,11 +81,192 @@
     -o-transition: all .2s linear;
 }
 
-.sys-company-not-found:hover{
+.sys-company-not-found:hover {
     -webkit-box-shadow: 0px 13px 28px rgba(0, 0, 0, 0.05);
     box-shadow: 0px 13px 28px rgba(0, 0, 0, 0.05);
 }
 
-.sys-admin-link{
+.sys-admin-link {
     border-top: 1px solid #E1E1E1;
+}
+
+.sys-placeholder p {
+    color: #ccc;
+    user-select: none;
+}
+
+.sys-big-font {
+    font-size: 14px;
+}
+
+.sys-form {
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.sys-help {
+    font-size: 12px;
+    color: #656565cc;
+    margin-top: -5px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sys-help a {
+    color: #2E5BFF;
+    text-decoration: none;
+    display: inline-block;
+    border-bottom: 1px dashed #2E5BFF;
+}
+
+.sys-help-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sys-help-actions span {
+    display: block;
+    margin: 0 15px;
+}
+
+a.sys-help-cancel {
+    color: #4a4949;
+    border-color: #4a4949;
+}
+
+.sys-form-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.sys-form-btns button:last-child {
+    margin-left: 20px;
+}
+
+.sys-form-btns .btn-blue {
+    display: inline-block;
+    max-width: 100%;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 100%;
+    padding: 12px 17px 12px 17px;
+    background: #2E5BFF;
+    border-radius: 10px;
+    color: #fff;
+}
+
+
+.sys-form-btns .btn-white {
+    display: inline-block;
+    max-width: 100%;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 100%;
+    padding: 12px 17px 12px 17px;
+    background: #fff;
+    border: 1px solid #2E5BFF;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: #2E5BFF;
+}
+
+
+/** override style.css 06-08-2021  */
+.info-item-title-box {
+    margin-right: 0px;
+}
+
+.form-contragent-wrap-search {
+
+}
+
+.form-contragent-wrap-search .contragent-form__item {
+    width: 100%;
+}
+
+.form-contragent-wrap-search .contragent-form {
+    position: relative;
+    background: #fff;
+    border-radius: 10px 10px 0 0;
+    padding: 35px 36px 20px 36px;
+    border-bottom: 1px solid #F2F2F2;
+}
+
+.form-contragent-wrap-no-border-radius .contragent-form {
+    border-radius: 0 0 10px 10px;
+}
+
+.js-hidden-contragent-item {
+    display: none;
+}
+
+.found-company {
+    /*display: none;*/
+}
+
+.found-company-closed {
+    margin-bottom: 25px;
+}
+
+.found-company-closed .message-form {
+    margin-left: 0;
+}
+
+.found-company-item {
+    margin-bottom: 4px;
+    display: block;
+    width: 100%;
+}
+
+.found-company-item span {
+    display: block;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 100%;
+    color: #96979B;
+    margin-bottom: 8px;
+}
+
+
+.found-company-item b {
+    display: block;
+    margin-bottom: 8px;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+    height: 45px;
+    color: #424552;
+}
+
+.form-btns {
+    border-top: 1px solid #F2F2F2;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #2E5BFF;
+}
+
+.com-ACTIVE {
+    color: #2E5BFF !important;
+}
+
+.com-LIQUIDATING,
+.com-LIQUIDATED{
+    color: #e4242d !important;
+}
+
+.com-BANKRUPT,
+.com-REORGANIZING{
+    color: #FC5F07 !important;
+}
+
+.message-form a{
+    color: initial;
+    text-decoration: underline;
 }

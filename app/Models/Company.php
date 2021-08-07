@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Company extends Model
 {
@@ -87,6 +88,32 @@ class Company extends Model
     public function awaits()
     {
         return $this->hasMany(CompanyAwait::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class)->orderBy('created_at', 'DESC');
+    }
+
+    /** Setters & Getters */
+    public function getFullNameAttribute($value)
+    {
+        return "{$this->legal} {$this->name}";
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($company) {
+            $company->events()->create([
+                'user_id' => Auth::user()->id,
+                'title' => 'Организация добавлена в систему: ' . Auth::user()->name
+            ]);
+        });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'ssn';
     }
 
 }

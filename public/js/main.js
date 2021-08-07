@@ -55,12 +55,12 @@ $(function() {
 
     });
 
-    /*$('#search').autocomplete({
+    $('#search').autocomplete({
         minChars: 2,
         maxHeight: 410,
         lookupLimit: 13,
         lookup: contractors
-    });*/
+    });
 
     $('.elem-item-list').each(function() {
         if ($(this).closest('.elem-item').attr('style') != 'display: none;') {
@@ -74,37 +74,37 @@ $(function() {
 
     });
 
-    $('.btn-switch').click(function() {
-        $('.elem-information__btns').find('.active').removeClass('active');
-        $(this).addClass('active');
-        $('.elem-information__box').find('.elem-item').hide();
-        $('#' + $(this).data('switch')).show();
-        if ($(this).hasClass('active')) {
-            $('.elem-item-list').each(function() {
-                if ($(this).closest('.elem-item').attr('style') != 'display: none;') {
-                    var Len = $(this).find('.elem-item-box').length;
-                    if (Len == 2) {
-                        $(this).children('.add-card').addClass('add-card-2');
-                    } else if (Len == 1) {
-                        $(this).children('.add-card').addClass('add-card-1');
-                    }
-                }
-            });
-        }
-    });
+    // $('.btn-switch').click(function() {
+    //     $('.elem-information__btns').find('.active').removeClass('active');
+    //     $(this).addClass('active');
+    //     $('.elem-information__box').find('.elem-item').hide();
+    //     $('#' + $(this).data('switch')).show();
+    //     if ($(this).hasClass('active')) {
+    //         $('.elem-item-list').each(function() {
+    //             if ($(this).closest('.elem-item').attr('style') != 'display: none;') {
+    //                 var Len = $(this).find('.elem-item-box').length;
+    //                 if (Len == 2) {
+    //                     $(this).children('.add-card').addClass('add-card-2');
+    //                 } else if (Len == 1) {
+    //                     $(this).children('.add-card').addClass('add-card-1');
+    //                 }
+    //             }
+    //         });
+    //     }
+    // });
 
     $('.btn-more').click(function(e) {
         e.preventDefault();
-        $('.btn-el-items').css('opacity', '0');
+        $('.btn-more').removeClass('active');
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
-            $('.btn-el-items').css('opacity', '0');
+            // $('.btn-el-items').css({"opacity":"0", "visibility":"visibile"});
         } else {
             $(this).addClass('active');
-            var btnItems = $(this).siblings('.btn-el-items');
-            if (btnItems.css('opacity') != '1') {
-                btnItems.css('opacity', '1');
-            }
+            // var btnItems = $(this).siblings('.btn-el-items');
+            // if (btnItems.css('opacity') == '0' && btnItems.css('visibility') == 'hidden'){
+            //     btnItems.css({"opacity":"1", "visibility":"visibile"});
+            // }
         }
     });
 
@@ -113,7 +113,7 @@ $(function() {
         if (!div2.is(e.target) &&
             div2.has(e.target).length === 0) {
             $('.btn-more').removeClass('active');
-            $('.btn-el-items').css('opacity', '0');
+            // $('.btn-el-items').css('opacity', '0');
         }
     });
 
@@ -155,8 +155,26 @@ $(function() {
 
     });
 
+    $('.data-messages').datepicker({
+
+    });
+
+
     $('.date-new-event').datepicker({
 
+    });
+
+
+
+    $('.plans-box__right .add-card').click(function() {
+        elementClick = $(this).attr("href")
+        destination = $(elementClick).offset().top;
+        $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination }, 700);
+        setTimeout(() => {
+            $('.plans-request .btn-blue').trigger('click');
+        }, 500);
+
+        return false;
     });
 
     // $('#time-from').datepicker({
@@ -171,11 +189,11 @@ $(function() {
     //     }
     // });
 
-    $('.dates-plans').scrollbar({
-        ignoreOverlay: false,
-        autoScrollSize: true,
-        autoUpdate: true
-    });
+    // $('.dates-plans').scrollbar({
+    //     ignoreOverlay: false,
+    //     autoScrollSize: true,
+    //     autoUpdate: true
+    // });
 
     // $('.list').addClass('scrollbar-outer');
 
@@ -210,6 +228,12 @@ $('.plans-request .btn-blue').click(function(e) {
     $('.plans-request-form').show();
 });
 
+$('.plans-request .btn-blue').click(function(e) {
+    e.preventDefault();
+    $('.plans-request-info').hide();
+    $('.plans-request-form').show();
+});
+
 $('.btn-new-event').click(function(e) {
     e.preventDefault();
     $('.new-event-box').show();
@@ -218,6 +242,18 @@ $('.btn-new-event').click(function(e) {
 $('.new-event-box__top a').click(function(e) {
     e.preventDefault();
     $('.new-event-box').hide();
+});
+
+
+$('body').on('click', '.pass-show', function(e) {
+    e.preventDefault();
+    if ($(this).hasClass('active')) {
+        $(this).removeClass('active');
+        $('#user-auth-password').attr('type', 'password');
+    } else {
+        $(this).addClass('active');
+        $('#user-auth-password').attr('type', 'text');
+    }
 });
 
 $(window).on('load', function() {
@@ -278,5 +314,38 @@ $(window).on('load resize', function() {
         $('.btn-new-event').prependTo($('.events-dates'));
     }
 
+    if (width > '750') {
+        // var objToStick = $("#objToStick");
+        // var topOfObjToStick = $(objToStick).offset().top;
+
+        let objToStick2 = $("#message-form");
+        let topOfObjToStick2 = 0;
+        if (objToStick2.length) {
+            topOfObjToStick2 = objToStick2.offset().top;
+        }
+
+        // $(window).scroll(function() {
+        //     var windowScroll = $(window).scrollTop();
+
+        //     if (windowScroll > topOfObjToStick) {
+        //         $(objToStick).addClass("topWindow");
+        //     } else {
+        //         $(objToStick).removeClass("topWindow");
+        //     };
+        // });
+
+        $(window).scroll(function() {
+            var windowScroll = $(window).scrollTop();
+
+            if (windowScroll > topOfObjToStick2) {
+                $(objToStick2).addClass("topWindowMess");
+            } else {
+                $(objToStick2).removeClass("topWindowMess");
+            };
+        });
+    }
+
 
 });
+//# sourceMappingURL=../sourcemaps/main.js.map
+//# sourceMappingURL=../sourcemaps/main.js.map
