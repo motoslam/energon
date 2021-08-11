@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyCreateRequest;
 use App\Models\CompanyAwait;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use App\Models\City;
 use App\Models\Company;
@@ -21,7 +22,7 @@ class CompanyController extends Controller
     {
         $this->templateData['companyTypes'] = CompanyType::all();
         $this->templateData['companyPurchases'] = CompanyPurchase::all();
-        $this->templateData['companyStatuses'] = CompanyStatus::all();
+        $this->templateData['companyStatuses'] = CompanyStatus::allowed();
         $this->templateData['companyPotentialities'] = Potentiality::all();
         $this->templateData['citiesList'] = City::all();
     }
@@ -40,20 +41,17 @@ class CompanyController extends Controller
      * ---
      * Возвращает JSON строку:
      * company false - можно добавить компанию пользователю;
-     * company [ssn, name] - компания уже добавлена в систему.
+     * company [id, ssn, url] - компания уже добавлена в систему.
      */
     public function check(Request $request)
     {
         $company = Company::where('ssn', $request->input('ssn'))
-            ->where('company_status_id', '<>', 5)->firstOr(['id', 'name', 'ssn'], function () {
+            ->where('company_status_id', '<>', 5)->firstOr(['*'], function () {
                 return false;
             });
 
-        if($company && ($company->user_id == $request->user()->id)) {
-            $company = array_merge(
-                $company->toArray(),
-                ['url' => route('companies.show', ['company' => $company])]
-            );
+        if ($company) {
+            $company = $company->only('id', 'ssn', 'url');
         }
 
         return response()->json([
@@ -74,41 +72,48 @@ class CompanyController extends Controller
         // может админ? зачем?
 
         $newCompany = Company::firstOrNew([
-            'company_type_id' => $request->input('company_type'),
-            'company_status_id' => $request->input('company_status'),
-            'company_purchase_id' => $request->input('company_purchase'),
-            'potentiality_id' => $request->input('company_potentiality'),
-            'city_id' => $request->input('city'),
-            'name' => $request->input('name'),
-            'legal' => $request->input('legal'),
             'ssn' => $request->input('ssn'),
-            'description' => $request->input('description'),
-            'address' => $request->input('address')
         ]);
 
-        if($newCompany->user) {
+        if (!$newCompany->user) {
 
-            if($newCompany->user != Auth::user()) {
+            $newCompany->user_id = Auth::user()->id;
+            $newCompany->company_type_id = $request->input('company_type') ?? 1;
+            $newCompany->company_status_id = $request->input('company_status') ?? 1;
+            $newCompany->company_purchase_id = $request->input('company_purchase') ?? 1;
+            $newCompany->potentiality_id = $request->input('company_potentiality') ?? 3;
+            $newCompany->city_id = City::whereId($request->input('city'))->firstOr(['id'], function () {
+                return 510;
+            })->id;
+            $newCompany->name = $request->input('name');
+            $newCompany->legal = $request->input('legal');
+            $newCompany->description = $request->input('description');
+            $newCompany->address = $request->input('address');
+            $newCompany->save();
+
+        } else {
+
+            if ($newCompany->user != Auth::user()) {
 
                 CompanyAwait::create([
                     'company_id' => $newCompany->id,
                     'user_id' => Auth::user()->id,
-                    'status' => 0
+                    'status' => 0,
                 ]);
+
+                return redirect()->route('companies.index')->with(
+                    'success', 'Контрагент появится в списке, как только руководитель одобрит перенос.'
+                );
 
             } else {
 
-                return redirect()->back()->withErrors([
-                    'ssn' => 'Данная организация уже добавлена в ваш список контрагентов'
+                return redirect()->route('companies.show', ['company' => $newCompany])->withErrors([
+                    'ssn' => 'Организация уже была добавлена в список ваших контрагентов.'
                 ]);
 
             }
 
         }
-
-        $newCompany->user_id = $request->user()->id;
-
-        $newCompany->save();
 
         return redirect()->route('companies.show', ['company' => $newCompany]);
     }
@@ -129,7 +134,38 @@ class CompanyController extends Controller
 
     public function update(Request $request, Company $company)
     {
+        $company->company_type_id = $request->input('company_type') ?? 1;
+        $company->company_status_id = $request->input('company_status') ?? 1;
+        $company->company_purchase_id = $request->input('company_purchase') ?? 1;
+        $company->potentiality_id = $request->input('company_potentiality') ?? 3;
+        $company->contract = $request->input('contract');
+        $company->specification = $request->input('specification');
+        $company->offer_number = $request->input('offer_number');
+        $company->order_number = $request->input('order_number');
+        $company->order_date = $request->input('order_date');
+        $company->order_total = $request->input('order_total');
+        $company->manager_bonus = $request->input('manager_bonus');
+        $company->working_hours = $request->input('working_hours');
+        $company->equipment = $request->input('equipment');
+        $company->save();
 
+        return redirect()->route('companies.show', ['company' => $company])->with([
+            'success' => 'Изменения сохранены'
+        ]);
+    }
+
+    public function tasks(Company $company)
+    {
+        $this->templateData['company'] = $company;
+
+        return view('company.show', $this->templateData);
+    }
+
+    public function contacts(Company $company)
+    {
+        $this->templateData['company'] = $company;
+
+        return view('company.show', $this->templateData);
     }
 
     public function destroy($id)

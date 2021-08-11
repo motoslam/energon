@@ -1,44 +1,42 @@
 <!-- Because you are alive, everything is possible. - Thich Nhat Hanh -->
 
-<div class="elem-line">
+<div class="elem-line" {{ in_array($company->company_status_id, [2, 3]) ? '' : 'hidden' }}>
     <div class="elem-line__content">
-        @if($company->contract)
         <div>
             <span>№ Договора</span>
-            <b>{{ $company->contract }}</b>
+            <b>{{ $company->contract ?? '—' }}</b>
         </div>
-        @endif
         <div>
             <span>№ Спецификации</span>
-            <b>678</b>
+            <b>{{ $company->specification ?? '—' }}</b>
         </div>
         <div>
             <span>№ Заявки</span>
-            <b>26П-УК72УЕ</b>
+            <b>{{ $company->offer_number ?? '—' }}</b>
         </div>
         <div>
             <span>№ Заказа</span>
-            <b>876340-7923</b>
+            <b>{{ $company->order_number ?? '—' }}</b>
         </div>
         <div>
             <span>Дата заказа</span>
-            <b>10.03.2021</b>
+            <b>{{ $company->order_date ?? '—' }}</b>
         </div>
         <div>
             <span>Сумма заказов</span>
-            <b>231</b>
+            <b>{{ $company->order_total ?? '—' }}</b>
         </div>
         <div>
             <span>% Премии менеджера</span>
-            <b>10</b>
+            <b>{{ $company->manager_bonus ?? '—' }}</b>
         </div>
         <div>
             <span>Кол-во рабочих часов</span>
-            <b>78</b>
+            <b>{{ $company->working_hours ?? '—' }}</b>
         </div>
         <div>
             <span>Тип оборудования</span>
-            <b>Description</b>
+            <b>{{ $company->equipment ?? '—' }}</b>
         </div>
     </div>
     <div class="btn-more-box">

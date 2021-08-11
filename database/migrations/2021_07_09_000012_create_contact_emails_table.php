@@ -15,7 +15,7 @@ class CreateContactEmailsTable extends Migration
     {
         Schema::create('contact_emails', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('contact_id');
+            $table->foreignId('contact_id')->cascadeOnDelete();
             $table->string('data');
             $table->timestamps();
         });

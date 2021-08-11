@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id');                        /** Контрагент */
+            $table->foreignId('company_id')->onDelete('cascade');   /** Контрагент */
             $table->foreignId('user_id');                           /** Пользователь, оформивший заказ */
             $table->string('internal_id');                          /** Номер заказа из договора */
             $table->decimal('total', 10, 2);           /** Сумма заказа */

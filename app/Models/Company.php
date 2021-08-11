@@ -25,10 +25,16 @@ class Company extends Model
         'address',
         'contract',
         'specification',
+        'offer_number',
+        'order_number',
+        'order_date',
+        'order_total',
         'manager_bonus',
         'working_hours',
         'equipment',
     ];
+
+    protected $appends = ['url'];
 
     public function user()
     {
@@ -67,7 +73,7 @@ class Company extends Model
 
     public function contacts()
     {
-        return $this->hasMany(Contact::class);
+        return $this->hasMany(Contact::class)->latest();
     }
 
     public function tasks()
@@ -96,10 +102,26 @@ class Company extends Model
     }
 
     /** Setters & Getters */
-    public function getFullNameAttribute($value)
+    public function getFullNameAttribute()
     {
         return "{$this->legal} {$this->name}";
     }
+
+    public function getUrlAttribute()
+    {
+        return route('companies.show', ['company' => $this]);
+    }
+
+    public function setOrderTotalAttribute($value)
+    {
+        $this->attributes['order_total'] = $value ? preg_replace('/[^0-9]/', '', $value) : null;
+    }
+
+    public function setManagerBonusAttribute($value)
+    {
+        $this->attributes['manager_bonus'] = $value ? preg_replace('/[^0-9]/', '', $value) : null;
+    }
+
 
     protected static function booted()
     {
@@ -109,6 +131,7 @@ class Company extends Model
                 'title' => 'Организация добавлена в систему: ' . Auth::user()->name
             ]);
         });
+        //static::updated(function($company){});
     }
 
     public function getRouteKeyName()

@@ -1,11 +1,11 @@
-<x-app-layout title="Создание нового контрагента" wrapper_css="wrapper-edit">
+<x-app-layout title="Новый контрагент" wrapper_css="wrapper-create">
 
     <x-slot name="header">
         <div class="content-box__back-line">
             <div class="container">
-                <a href="{{ route('companies.create') }}" class="back">Назад</a>
+                <a href="{{ route('companies.index') }}" class="back">Назад</a>
                 <div class="form-contragent-top">
-                    <div class="title">Создание нового контрагента</div>
+                    <div class="title">Новый контрагент</div>
                 </div>
             </div>
         </div>
@@ -17,112 +17,53 @@
                 <form action="#" method="post" class="contragent-form" onsubmit="return false;">
                     <div class="contragent-form__item contragent-form__item50">
                         <label for="search">Поиск организаций по названию, ИНН, ОГРН и КПП</label>
-                        <input type="search" id="searchBySSN"
+                        <input type="search" id="searchBySSN" @error('ssn') error @enderror
                                placeholder=""
                                autocomplete="off">
                     </div>
-                    <div class="found-company" id="company_founded" hidden>
+                    @if ($errors->any())
+                        <div class="message-form message-error" style="margin-left: 0; margin-bottom: 25px">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
+                    <div class="found-company" id="company_founded" @if (!$errors->any()) hidden @endif >
                         <div class="found-company-closed" id="company_error" hidden>
                             <div class="message-form message-lock" id="company_error_message"></div>
                         </div>
                         <div class="found-company-item">
                             <span>Название организации</span>
-                            <b id="company_name"></b>
+                            <b id="company_name">{{ old('name') ?? '—' }}</b>
                         </div>
                         <div class="found-company-item">
                             <span>ИНН</span>
-                            <b id="company_ssn"></b>
+                            <b id="company_ssn">{{ old('ssn') ?? '—' }}</b>
                         </div>
                         <div class="found-company-item">
                             <span>Адрес</span>
-                            <b id="company_address"></b>
+                            <b id="company_address">{{ old('address') ?? '—' }}</b>
                         </div>
                         <div class="found-company-item">
                             <span>Статус организации</span>
-                            <b id="company_state"></b>
+                            <b id="company_state">{{ old('state') ?? '—' }}</b>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-
-        <div class="TESTDATA">
-            <div x-data="statusData()">
-                <ul>
-                    <template x-for="status in statuses" :key="status.id">
-                        <li>
-                            <span x-text="status.name"></span>
-                        </li>
-                    </template>
-                </ul>
-            </div>
-            <script>
-                window.companyStatuses = [];
-
-                async function loadData() {
-                    const response = await fetch("/json/classifieds/company/statuses")
-                    const data = await response.json()
-                    window.companyStatuses = data
-                    console.log(data)
-                }
-
-                loadData()
-
-                console.log(window.companyStatuses)
-
-                function statusData() {
-                    return {
-                        statuses: window.companyStatuses,
-                        init() {
-                            loadData()
-                        }
-                    }
-                }
-
-                /*const statusData = {
-                    statuses: [],
-                    initialize() {
-                        async function loadData() {
-                            const response = await fetch("/json/classifieds/company/statuses")
-                            const data = await response.json()
-                            statusData.statuses = data.data
-                        }
-
-                        loadData()
-
-                        //console.log(this.statuses)
-                    }
-                }*/
-            </script>
-        </div>
-
         <div class="form-contragent-wrap form-contragent-wrap-no-border-radius">
             <div class="container">
 
                 <form action="{{ route('companies.store') }}" class="contragent-form" method="post">
                     @csrf
 
+                    <input type="hidden" id="name" name="name" value="{{ old('name') }}"/>
+                    <input type="hidden" id="ssn" name="ssn" value="{{ old('ssn') }}"/>
+                    <input type="hidden" id="city" name="city" value="{{ old('city') }}"/>
+                    <input type="hidden" id="legal" name="legal" value="{{ old('legal') }}"/>
+                    <input type="hidden" id="address" name="address" value="{{ old('address') }}"/>
+                    <input type="hidden" id="state" name="state" value="{{ old('state') }}"/>
+
                     <div class="contragent-form-box">
-                        <div class="contragent-form__item js-hidden-contragent-item">
-                            <label for="ssn">ИНН</label>
-                            <input type="text" id="ssn" name="ssn" class="@error('ssn') error @enderror"
-                                   value="{{ old('ssn') }}" disabled tabindex="-1" aria-disabled="disabled"/>
-                        </div>
-                        <div class="contragent-form__item js-hidden-contragent-item">
-                            <label for="full_name">Название организации</label>
-                            <input type="text" id="full_name" name="full_name" value="{{ old('full_name') }}"
-                                   disabled tabindex="-1" aria-disabled="disabled">
-                        </div>
-                        <div class="contragent-form__item js-hidden-contragent-item">
-                            <label for="city">Город</label>
-                            <input type="text" id="city" name="city" value="{{ old('city') }}"
-                                   disabled tabindex="-1" aria-disabled="disabled">
-                        </div>
-                        <div class="contragent-form__item js-hidden-contragent-item">
-                            <label for="address">Адрес</label>
-                            <input type="text" id="address" name="address" value="{{ old('address') }}"
-                                   disabled tabindex="-1" aria-disabled="disabled">
-                        </div>
                         <div class="contragent-form__item">
                             <label for="company_type">Тип контрагента</label>
                             <select name="company_type" id="company_type"
@@ -145,18 +86,16 @@
                                 @endforeach
                             </select>
                         </div>
-                        {{--<div class="contragent-form__item"
-                             x-data="{statuses: []}"
-                             x-init="statuses = await (await fetch('{{ route('json.classifieds.company.statuses') }}')).json();">
+                        <div class="contragent-form__item">
                             <label for="company_status">Статус контрагента</label>
                             <select name="company_status" id="company_status"
                                     class="@error('company_status') error @enderror">
                                 <option value="" disabled selected data-display=" ">Выберите статус контрагента</option>
-                                <template x-for="status in statuses" :key="status.id">
-                                    <option :value="status.id" x-text="status.name"></option>
-                                </template>
+                                @foreach($companyStatuses as $companyStatus)
+                                    <option value="{{ $companyStatus->id }}">{{ $companyStatus->name }}</option>
+                                @endforeach
                             </select>
-                        </div>--}}
+                        </div>
 
                         <div class="contragent-form__item">
                             <label for="company_potentiality">Потенциал</label>
@@ -178,12 +117,8 @@
                         </div>
 
                         <div class="form-btns">
-                            <button type="submit" class="btn-blue">Добавить</button>
-                            @if ($errors->any())
-                                <div class="message-form message-error">
-                                    {{ $errors->first() }}
-                                </div>
-                            @endif
+                            <button type="button" class="btn-blue"
+                                    onclick="checkFieldsBeforeSubmit(this)">Создать контрагента</button>
                         </div>
 
                     </div>
@@ -236,12 +171,8 @@
                 'printSuggestion': function (suggestion) {
                     this.clearError();
                     $('#company_founded').slideUp(200, function () {
-                        $('#company_ssn').html(suggestion.data.inn);
-                        $('#company_name').html(suggestion.data.name.full_with_opf);
-                        $('#company_address').html(suggestion.data.address.value);
-                        $('#company_state').removeClass().html(
-                            suggestionMachine.stateEnum[suggestion.data.state.status]
-                        ).addClass('com-' + suggestion.data.state.status);
+                        getCityByFiasId(suggestion.data.address.data.city_fias_id);
+                        collectCompanyData(suggestion);
                         suggestionMachine.checkSSN(suggestion.data.inn);
                     });
                 },
@@ -260,7 +191,7 @@
                         success: function (response) {
                             if (typeof response.company === 'object' && response.company !== null) {
                                 suggestionMachine.showError(
-                                    "<a href=\"" + response.company.url + "\">Организация #" + response.company.ssn +
+                                    "Организация <a href=\"" + response.company.url + "\">#" + response.company.ssn +
                                     "</a> уже добавлена в систему.",
                                     '', 'lock'
                                 );
@@ -272,36 +203,63 @@
                 }
             };
 
-            async function getJsonData(selectName) {
-                let classifieds = {
-                    'statuses': '{{ route('json.classifieds.company.statuses') }}'
-                };
-                if (typeof classifieds[selectName] !== 'undefined') {
-                    try {
-                        let response = await fetch(classifieds[selectName]);
-                        let data = await response.json();
-                        return data.data;
-                    } catch (error) {
-                        alert(error);
-                    }
-                }
+            let getCityByFiasId = function (fias_id) {
+                if (!fias_id) return false;
+                fetch('{{ route('json.classifieds.cities.find') }}?fias_id=' + fias_id)
+                    .then(response => response.json())
+                    .then((result) => {
+                        if (result.status) {
+                            $('#city').val(result.data.id);
+                        }
+                    });
+                return true;
             }
 
-            window.getJsonData = getJsonData;
+            let collectCompanyData = function (suggestion) {
+                $('#company_ssn').html(suggestion.data.inn);
+                $('#company_name').html(suggestion.data.name.full_with_opf);
+                $('#company_address').html(suggestion.data.address.value);
+                $('#company_state').removeClass().html(
+                    suggestionMachine.stateEnum[suggestion.data.state.status]
+                ).addClass('com-' + suggestion.data.state.status);
 
-            let getJsonDataOLd = function (selectName) {
-                let classifieds = {
-                    'statuses': '{{ route('json.classifieds.company.statuses') }}'
-                };
-                var responseData = [];
-                if (typeof classifieds[selectName] !== 'undefined') {
-                    responseData = fetch(classifieds[selectName])
-                        .then(response => response.json())
-                        .then(data => responseData = data)
-                }
-                console.log(responseData);
-                return responseData;
+                $('#ssn').val(suggestion.data.inn);
+                $('#name').val(suggestion.data.name.short_with_opf);
+                $('#legal').val(suggestion.data.opf.short);
+                $('#address').val(suggestion.data.address.unrestricted_value);
+                $('#state').val(suggestionMachine.stateEnum[suggestion.data.state.status]);
+                return true;
             }
+
+            function checkFieldsBeforeSubmit(btn) {
+                if($('#ssn').val() === '') {
+                    $('#searchBySSN').addClass('error');
+                    return false;
+                }
+                if ( !$('#company_type').val() ||
+                     !$('#company_purchase').val() ||
+                     !$('#company_status').val() ||
+                     !$('#company_potentiality').val() ) {
+
+                    Swal.fire({
+                        title: 'Это все?',
+                        text: "Некоторые поля не заполнены, и им будет присвоено значение по умолчанию",
+                        icon: 'question',
+                        showCancelButton: true,
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Создать контрагента',
+                        cancelButtonText: 'Отмена',
+                        confirmButtonColor: '#2E5BFF',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $(btn).closest('form').submit();
+                        }
+                    })
+                }
+                return false;
+            }
+
         </script>
     </x-slot>
 

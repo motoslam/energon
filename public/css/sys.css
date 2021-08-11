@@ -242,6 +242,13 @@ a.sys-help-cancel {
     color: #424552;
 }
 
+.found-company-detail a {
+    font-size: 14px;
+    color: #2E5BFF;
+    text-decoration: none;
+    border-bottom: 1px #2E5BFF dashed;
+}
+
 .form-btns {
     border-top: 1px solid #F2F2F2;
 }
@@ -270,3 +277,127 @@ select:focus {
     color: initial;
     text-decoration: underline;
 }
+
+.message-toast{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: 999;
+    height: auto;
+    background: transparent;
+    background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(130,130,130, .5) 70%);
+    opacity: 0;
+    margin-top: -150px;
+    height: 150px;
+    user-select: none;
+    display: none;
+}
+
+.message-toast .message-toast-show{
+    display: block;
+    -webkit-animation-name: slidein;
+    -webkit-animation-duration: .5s;
+    -webkit-animation-fill-mode: forwards;
+}
+
+.message-toast .message-form{
+    margin: 25px auto;
+    -webkit-box-shadow: 0px 13px 28px rgb(0 0 0 / 5%);
+    box-shadow: 0px 13px 28px rgb(0 0 0 / 5%);
+}
+
+@keyframes slidein {
+    from {
+        margin-top: -150px;
+        opacity: 0;
+    }
+
+    to {
+        margin-top: 0px;
+        opacity: 1;
+    }
+}
+
+.swal2-container{
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.message-ok-margins{
+    margin-left: 0;
+    margin-bottom: 25px;
+}
+
+.info-item-top__left span.in-work2{
+    min-width: 84px;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.contragent-form-border-bottom{
+    border-bottom: 1px solid #F2F2F2;
+}
+
+.contragent-form__item_info{
+    background: #f4f6f6;
+    padding: 15px 20px 18px 20px;
+}
+
+.contragent-form__item_info span{
+    font-size: 11px;
+    color: #96979b;
+}
+
+.btn-cancel{
+    display: block;
+    max-width: 196px;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+    background: #e0e0e0;
+    border-radius: 10px;
+    padding: 16px 0 15px 0;
+    color: #000;
+    margin-top: 36px;
+}
+
+.edit-form-btns{
+    display: flex;
+    justify-content: flex-end;
+    border: none;
+}
+
+.personal-form{
+    border: none;
+    padding: 0;
+}
+
+.events-item-info-note a{
+    color: #2E5BFF;
+    font-size: 12px;
+}
+
+.form-new-task__box{
+    align-items: flex-start;
+}
+
+.form-new-task__item-100{
+    width: 100%;
+}
+
+.task .events-item-date::before {
+    background: #4CC5AB; }
+
+.contact .events-item-date::before {
+    background: #F1DA89; }
+
+.task .events-item-info::before {
+    background: #4CC5AB; }
+
+.contact .events-item-info::before {
+    background: #F1DA89; }

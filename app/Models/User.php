@@ -18,6 +18,7 @@ class User extends Authenticatable
         'password',
         'role',
         'photo',
+        'show_detail_company'
     ];
 
     protected $hidden = [
@@ -52,6 +53,11 @@ class User extends Authenticatable
     public function offers()
     {
         return $this->hasMany(Offer::class);
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
     }
 
     public function awaits()

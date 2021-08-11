@@ -31,7 +31,11 @@ class CreateCompaniesTable extends Migration
 
             $table->string('contract')->nullable();                             /** Номер договора */
             $table->string('specification')->nullable();                        /** Номер спецификации */
-            $table->decimal('manager_bonus', 2, 2)->nullable();    /** Процент менеджера */
+            $table->string('offer_number')->nullable();                         /** Номер заявки */
+            $table->string('order_number')->nullable();                         /** Номер заказа */
+            $table->date('order_date')->nullable();                             /** Дата заказа */
+            $table->integer('order_total')->nullable();                         /** Сумма заказов */
+            $table->integer('manager_bonus')->nullable();                       /** Процент менеджера */
             $table->integer('working_hours')->nullable();                       /** Кол-во рабочих часов */
             $table->string('equipment')->nullable();                            /** Тип оборудования */
 

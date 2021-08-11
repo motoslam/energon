@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContactPhonesTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateContactPhonesTable extends Migration
      */
     public function up()
     {
-        Schema::create('contact_phones', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('contact_id')->cascadeOnDelete();
-            $table->string('title')->default('Номер телефона');
-            $table->string('data');
+            $table->foreignId('company_id');
+            $table->foreignId('user_id');
+            $table->foreignId('contact_id')->nullable();
+            $table->text('data')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateContactPhonesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contact_phones');
+        Schema::dropIfExists('comments');
     }
 }

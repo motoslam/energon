@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Company;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyCreateRequest extends FormRequest
 {
@@ -17,20 +18,26 @@ class CompanyCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
             'ssn' => ['required'],
+            'name' => ['required'],
             'city' => ['required', 'exists:cities,id'],
-            'company_type' => ['required', 'exists:company_types,id'],
-            'company_purchase' => ['required', 'exists:company_purchases,id'],
-            'company_status' => ['required', 'exists:company_statuses,id'],
-            'company_potentiality' => ['required', 'exists:potentialities,id'],
+            'company_type' => ['sometimes', 'required', 'exists:company_types,id'],
+            'company_purchase' => ['sometimes', 'required', 'exists:company_purchases,id'],
+            'company_status' => ['sometimes', 'required', 'exists:company_statuses,id'],
+            'company_potentiality' => ['sometimes', 'required', 'exists:potentialities,id'],
         ];
     }
 
     public function messages()
     {
         return [
-
+            'ssn.required' => 'Ошибка при добавлении контрагента: Организация не найдена',
+            'name.required' => 'Ошибка при добавлении контрагента: Организация без имени',
+            'city.required' => 'Ошибка при добавлении контрагента: Указанный город не найден',
+            'company_type.exists' => 'Тип контрагента не зарегистрирован',
+            'company_purchase.exists' => 'Тип закупки не зарегистрирован',
+            'company_status.exists' => 'Статус контрагента не зарегистрирован',
+            'company_potentiality.exists' => 'Потенциал не зарегистрирован',
         ];
     }
 

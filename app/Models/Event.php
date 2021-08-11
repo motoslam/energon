@@ -21,4 +21,9 @@ class Event extends Model
         return $this->belongsTo(Company::class);
     }
 
+    public function attachable()
+    {
+        return $this->morphTo();
+    }
+
 }

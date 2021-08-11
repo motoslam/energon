@@ -16,9 +16,10 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable();
-            $table->foreignId('company_id');
+            $table->foreignId('company_id')->onDelete('cascade');
             $table->string('title');
             $table->text('content')->nullable();
+            $table->nullableMorphs('attachable');
             $table->timestamps();
         });
     }

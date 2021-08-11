@@ -17,7 +17,7 @@ class CreateOffersTable extends Migration
             $table->id();
             $table->foreignId('company_id');
             $table->foreignId('user_id');
-            $table->string('internal_id');
+            $table->string('internal_id');   /** Внешний ID заявки (в документах компании) */
             $table->timestamps();
         });
     }

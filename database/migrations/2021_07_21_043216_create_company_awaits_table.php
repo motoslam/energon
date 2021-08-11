@@ -17,7 +17,7 @@ class CreateCompanyAwaitsTable extends Migration
             $table->id();
             $table->foreignId('company_id');
             $table->foreignId('user_id');
-            $table->smallInteger('status');     // 0 - новая, 1 - одобрена, 2 - отклонена
+            $table->smallInteger('status')->default(0);     // 0 - новая, 1 - одобрена, 2 - отклонена
             $table->timestamps();
         });
     }

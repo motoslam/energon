@@ -16,7 +16,7 @@ class CreateContactsTable extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable();              // Кто добавил контакт
-            $table->foreignId('company_id');
+            $table->foreignId('company_id')->onDelete('cascade');
             $table->string('position')->nullable();
             $table->string('name');
             $table->timestamps();

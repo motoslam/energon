@@ -21,11 +21,22 @@
 
     <div class="content-box">
     {{ $header }}
-    <!--<img class="decor1" src="{{ asset('img/decor1.png') }}" alt="">
+        <!--<img class="decor1" src="{{ asset('img/decor1.png') }}" alt="">
         <img class="decor2" src="{{ asset('img/decor2.png') }}" alt="">-->
         {{ $slot }}
     </div>
 </div>
+
+<div class="message-toast">
+    <div class="message-form message-ok">
+        Контрагент появится в списке, как только руководитель одобрит перенос.
+    </div>
+</div>
+<script>
+    document.addEventListener("load", () => {
+        document.querySelector('.message-toast').classList.add("message-toast-show");
+    });
+</script>
 
 <script src="{{ asset('js/vendor.min.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
