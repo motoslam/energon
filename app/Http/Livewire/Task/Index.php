@@ -20,7 +20,7 @@ class Index extends Component
 
     public function updateList()
     {
-        $this->tasks = $this->model->tasks()git
+        $this->tasks = $this->model->tasks()
             ->get()
             ->groupBy([function ($created) {
                 return Carbon::parse($created->deadline_at)->format('Y');

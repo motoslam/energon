@@ -30,8 +30,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password')
             ], [
                 'name' => 'Александр',
-                'email' => 'alex_suschin@mail.ru',
-                'password' => Hash::make('password')
+                'email' => 'bglvssh@yandex.ru',
+                'password' => Hash::make('pass')
             ]
         ]);
     }
