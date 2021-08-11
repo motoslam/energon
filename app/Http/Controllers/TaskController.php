@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
 
     public function index()
     {
-        return view('tasks.index');
+        $user = Auth::user();
+
+        return view('tasks.index', compact('user'));
     }
 
     public function create(Request $request)

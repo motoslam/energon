@@ -20,13 +20,15 @@ class UserSeeder extends Seeder
                 'name' => 'Аккаунт разработчика',
                 'email' => 'motoslam@mail.ru',
                 'password' => Hash::make('password')
-            ],
-            [
+            ], [
                 'name' => 'Андрей',
                 'email' => 'nefyodov@yandex.ru',
                 'password' => Hash::make('password')
-            ],
-            [
+            ], [
+                'name' => 'Александр',
+                'email' => 'alex_suschin@mail.ru',
+                'password' => Hash::make('password')
+            ], [
                 'name' => 'Александр',
                 'email' => 'alex_suschin@mail.ru',
                 'password' => Hash::make('password')

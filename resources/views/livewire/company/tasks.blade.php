@@ -48,7 +48,9 @@
             @endif
         </div>
 
-        <livewire:company.create-task :company="$company"/>
+        <div class="feed-tasks__right">
+            <livewire:company.create-task :company="$company"/>
+        </div>
 
     </div>
 </div>

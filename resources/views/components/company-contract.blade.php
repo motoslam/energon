@@ -40,14 +40,13 @@
         </div>
     </div>
     <div class="btn-more-box">
-        <a class="btn-more" href="javascrirpt:void(0)">
+        <a class="btn-more" href="javascript:void(0)">
             <span></span>
             <span></span>
             <span></span>
         </a>
         <div class="btn-el-items">
-            <a href="#" class="btn-el btn-del"></a>
-            <a href="#" class="btn-el btn-edit"></a>
+            <a href="{{ route('companies.edit', ['company' => $company]) }}" class="btn-el btn-edit"></a>
         </div>
     </div>
 </div>

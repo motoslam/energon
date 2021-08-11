@@ -24,8 +24,7 @@ Route::get('/alpine', function () {
     $task->deadline_at = Carbon::createFromFormat('d.m.Y', '11.04.2020');
     $task->save();*/
 
-    $tasks = $company->tasks()
-        ->get()
+    $tasks = Task::all()
         ->groupBy([function($created){
             return Carbon::parse($created->deadline_at)->format('Y');
         }, function($created){
