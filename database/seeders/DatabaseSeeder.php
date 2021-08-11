@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             CompanyTypeSeeder::class,
             CitySeeder::class,
             UserSeeder::class,
+            TaskStatusSeeder::class,
         ]);
 
     }

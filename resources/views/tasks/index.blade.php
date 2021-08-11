@@ -1,6 +1,4 @@
-<x-app-layout>
-
-    <x-slot name="wrapper_css">wrapper-vn</x-slot>
+<x-app-layout title="Планировщик" wrapper_css="">
 
     <x-slot name="header">
         <div class="content-box__back-line">

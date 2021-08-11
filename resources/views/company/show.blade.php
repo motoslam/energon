@@ -51,12 +51,6 @@
                 </div>
             </div>
 
-            <!-- TODO: Вывести следующий блок когда будет понятна логика
-                При статусе клиента «действующий - разовый» и «действующий – постоянный», выводить
-                у контрагента: № Договора, № Спецификации, № Заявки, № Заказа, Дата заказа, Сумма заказов, %
-                Премии менеджера, Кол-во рабочих часов, Тип оборудования.
-                -->
-
             <x-company-contract :company="$company"/>
 
         </div>
@@ -76,13 +70,13 @@
             <div class="elem-information__box">
                 <div class="elem-item">
                     @if(Route::is('companies.show'))
-                        <livewire:company.feed :company="$company"/>
+                        <livewire:company.feed :company="$company" />
                     @endif
                     @if(Route::is('companies.contacts'))
-                        <livewire:company.contacts :company="$company"/>
+                        <livewire:company.contacts :company="$company" />
                     @endif
                     @if(Route::is('companies.tasks'))
-                        TASKS
+                        <livewire:company.tasks :company="$company" />
                     @endif
                 </div>
             </div>

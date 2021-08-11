@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -12,9 +14,12 @@ class TaskController extends Controller
         return view('tasks.index');
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $templateData['company'] = Company::find($request->get('company'));
+        $templateData['btnText'] = 'Создать задачу';
+
+        return view('tasks.create', $templateData);
     }
 
     public function store(Request $request)
@@ -22,9 +27,9 @@ class TaskController extends Controller
         //
     }
 
-    public function show($id)
+    public function show(Task $task)
     {
-        //
+        return view('tasks.show', compact('task'));
     }
 
     public function edit($id)

@@ -401,3 +401,20 @@ select:focus {
 
 .contact .events-item-info::before {
     background: #F1DA89; }
+
+.container-compatibility {
+    max-width: 1562px;
+    width: 100%;
+    padding: 0 16px;
+    position: relative;
+    margin: 0 auto; }
+
+.average::before {
+    background: #DFBC41;
+}
+.regular::before {
+    background: #4CC5AB;
+}
+.critical::before {
+    background: #F14D75;
+}

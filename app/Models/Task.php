@@ -16,14 +16,17 @@ class Task extends Model
         'company_id',
         'content',
         'task_status_id',
+        'from_admin',
         'need_confirm',
-        'planned_at',
-        'deadline_at'
+        'deadline_at',
+        'timer',
+        'priority',
+        'closed_at'
     ];
 
     protected $casts = [
-        'planned_at' => 'datetime',
-        'deadline_at' => 'datetime'
+        'deadline_at' => 'datetime',
+        'closed_at' => 'datetime'
     ];
 
     public function user()
@@ -31,8 +34,13 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function status()
+    {
+        return $this->belongsTo(TaskStatus::class);
+    }
+
     public function company()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Company::class);
     }
 }

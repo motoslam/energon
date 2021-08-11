@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
+use Carbon\Carbon;
+
 class Company extends Model
 {
     use HasFactory, SoftDeletes;
@@ -78,7 +80,8 @@ class Company extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class)
+            ->orderBy('deadline_at', 'ASC');
     }
 
     public function orders()

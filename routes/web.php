@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,19 +11,33 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\EventController;
 use App\Models\Company;
 use App\Models\City;
+use App\Models\Task;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/alpine', function () {
-    $contact = \App\Models\Contact::find(2)->first();
-    $event = \App\Models\Event::find(3);
+    $company = Company::find(1)->first();
+
+    /*$task = Task::find(1)->first();
+    $task->deadline_at = Carbon::createFromFormat('d.m.Y', '11.04.2020');
+    $task->save();*/
+
+    $tasks = $company->tasks()
+        ->get()
+        ->groupBy([function($created){
+            return Carbon::parse($created->deadline_at)->format('Y');
+        }, function($created){
+            return Carbon::parse($created->deadline_at)->format('m');
+        }, function($created){
+            return Carbon::parse($created->deadline_at)->format('d');
+        }]);
 
     //$event->attachable()->associate($contact);
     //$event->save();
 
-    return $event;
+    return $tasks;
 });
 
 Route::middleware(['auth'])->group(function () {

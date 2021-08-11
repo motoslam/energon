@@ -124,7 +124,7 @@
                         <div class="contragent-form__item">
                             <label for="order_date">Дата заказа</label>
                             <input type="text" name="order_date" id="order_date" @error('order_date') error @enderror
-                            value="{{ old('order_date') ?? $company->order_date }}">
+                            value="{{ old('order_date') ?? $company->order_date }}" class="datepick">
                         </div>
 
                         <div class="contragent-form__item">
@@ -188,6 +188,8 @@
                     $('#showDetailInfoCheckbox').prop("checked", true);
                 }
             }
+
+            $('.datepick').datepicker({});
         </script>
     </x-slot>
 

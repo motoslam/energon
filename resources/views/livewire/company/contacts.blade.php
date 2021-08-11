@@ -48,7 +48,7 @@
         </a>
     </div>
 
-
+    {{--
     <div class="elem-item-title">Связанные организации</div>
     <div class="elem-item-list">
 
@@ -98,5 +98,5 @@
             </div>
         </div>
         <a href="#" class="add-card"><span>Добавить</span><i></i></a>
-    </div>
+    </div>--}} <!-- Связанные организации -->
 </div>
