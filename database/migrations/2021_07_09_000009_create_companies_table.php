@@ -15,7 +15,6 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->nullable();                        /** Родительская модель */
             $table->foreignId('user_id')->nullable();                           /** Ответственный менеджер */
             $table->foreignId('company_type_id')->default(1);             /** Тип контрагента */
             $table->foreignId('company_status_id')->default(1);           /** Статус контрагента */

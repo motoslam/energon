@@ -3,126 +3,95 @@
     <x-slot name="header">
         <div class="content-box__back-line">
             <div class="container">
-                <a href="{{ route('companies.index') }}" class="back">Назад</a>
+                <a href="{{ url()->previous() }}" class="back">Назад</a>
                 <div class="form-contragent-top">
-                    <div class="title">Новая связанная организация</div>
+                    <div class="title">Связанная организация</div>
                 </div>
             </div>
         </div>
     </x-slot>
 
-    <div x-data>
-        <div class="form-contragent-wrap-search">
-            <div class="container">
-                <form action="#" method="post" class="contragent-form" onsubmit="return false;">
-                    <div class="contragent-form__item contragent-form__item50">
-                        <label for="search">Поиск организаций по названию, ИНН, ОГРН и КПП</label>
-                        <input type="search" id="searchBySSN" @error('ssn') error @enderror
-                        placeholder=""
-                               autocomplete="off">
-                    </div>
-                    @if ($errors->any())
-                        <div class="message-form message-error" style="margin-left: 0; margin-bottom: 25px">
-                            {{ $errors->first() }}
-                        </div>
-                    @endif
-                    <div class="found-company" id="company_founded" @if (!$errors->any()) hidden @endif >
-                        <div class="found-company-closed" id="company_error" hidden>
-                            <div class="message-form message-lock" id="company_error_message"></div>
-                        </div>
-                        <div class="found-company-item">
-                            <span>Название организации</span>
-                            <b id="company_name">{{ old('name') ?? '—' }}</b>
-                        </div>
-                        <div class="found-company-item">
-                            <span>ИНН</span>
-                            <b id="company_ssn">{{ old('ssn') ?? '—' }}</b>
-                        </div>
-                        <div class="found-company-item">
-                            <span>Адрес</span>
-                            <b id="company_address">{{ old('address') ?? '—' }}</b>
-                        </div>
-                        <div class="found-company-item">
-                            <span>Статус организации</span>
-                            <b id="company_state">{{ old('state') ?? '—' }}</b>
+    <div class="content-box__info-item">
+        <div class="container">
+            <div class="plans-box">
+                <div class="plans-box__left">
+                    <div class="plans-request">
+                        <div class="plans-request-form" x-data>
+                            <div class="title">Выбрать из своих организаций</div>
+                            <form action="{{ route('companies.binding', ['company' => $company]) }}"
+                                  method="post" x-ref="formone">
+                                @csrf
+                                <div class="form-request__item sys-custom-select clearfix"
+                                     style="margin-bottom: 26px;">
+                                    <select name="exist_company" id="exist_company">
+                                        <option value="" selected disabled>Список организаций</option>
+                                        @foreach($companies as $companyItem)
+                                            <option value="{{ $companyItem->id }}">{{ $companyItem->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-request__item">
+                                    <button type="submit" class="btn-blue" @click="$refs.formone.submit">Cвязать организации</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-        <div class="form-contragent-wrap form-contragent-wrap-no-border-radius">
-            <div class="container">
-
-                <form action="{{ route('companies.store') }}" class="contragent-form" method="post">
-                    @csrf
-
-                    <input type="hidden" id="name" name="name" value="{{ old('name') }}"/>
-                    <input type="hidden" id="ssn" name="ssn" value="{{ old('ssn') }}"/>
-                    <input type="hidden" id="city" name="city" value="{{ old('city') }}"/>
-                    <input type="hidden" id="legal" name="legal" value="{{ old('legal') }}"/>
-                    <input type="hidden" id="address" name="address" value="{{ old('address') }}"/>
-                    <input type="hidden" id="state" name="state" value="{{ old('state') }}"/>
-
-                    <div class="contragent-form-box">
-                        <div class="contragent-form__item">
-                            <label for="company_type">Тип контрагента</label>
-                            <select name="company_type" id="company_type"
-                                    class="@error('company_type') error @enderror">
-                                <option value="" disabled selected data-display=" ">Выберите тип контрагента</option>
-                                @foreach($companyTypes as $companyType)
-                                    <option value="{{ $companyType->id }}">{{ $companyType->name }}</option>
-                                @endforeach
-                            </select>
+                </div>
+                <div class="plans-box__right">
+                    <div class="dates-plans scrollbar-outer sys-fix-title">
+                        <div class="date-plan-item">
+                            <div class="title quote">или добавить новую</div>
+                            <div class="date-notes">
+                                <form action="{{ route('companies.binding', ['company' => $company]) }}"
+                                      method="post">
+                                    @csrf
+                                    <div class="sys-fix-input">
+                                        <input type="search" id="searchBySSN" @error('ssn') error @enderror
+                                        placeholder="Поиск организаций по названию, ИНН, ОГРН и КПП"
+                                               autocomplete="off">
+                                    </div>
+                                    @if ($errors->any())
+                                        <div class="message-form message-error" style="margin-left: 0; margin-bottom: 25px">
+                                            {{ $errors->first() }}
+                                        </div>
+                                    @endif
+                                    <input type="hidden" id="name" name="name" value="{{ old('name') }}"/>
+                                    <input type="hidden" id="ssn" name="ssn" value="{{ old('ssn') }}"/>
+                                    <input type="hidden" id="city" name="city" value="{{ old('city') }}"/>
+                                    <input type="hidden" id="legal" name="legal" value="{{ old('legal') }}"/>
+                                    <input type="hidden" id="address" name="address" value="{{ old('address') }}"/>
+                                    <input type="hidden" id="state" name="state" value="{{ old('state') }}"/>
+                                    <div class="found-company" id="company_founded" @if (!$errors->any()) hidden @endif >
+                                        <div class="found-company-closed" id="company_error" hidden>
+                                            <div class="message-form message-lock" id="company_error_message"></div>
+                                        </div>
+                                        <div class="found-company-item">
+                                            <span>Название организации</span>
+                                            <b id="company_name">{{ old('name') ?? '—' }}</b>
+                                        </div>
+                                        <div class="found-company-item">
+                                            <span>ИНН</span>
+                                            <b id="company_ssn">{{ old('ssn') ?? '—' }}</b>
+                                        </div>
+                                        <div class="found-company-item">
+                                            <span>Адрес</span>
+                                            <b id="company_address">{{ old('address') ?? '—' }}</b>
+                                        </div>
+                                        <div class="found-company-item">
+                                            <span>Статус организации</span>
+                                            <b id="company_state">{{ old('state') ?? '—' }}</b>
+                                        </div>
+                                    </div>
+                                    <div class="sys-flex-right">
+                                        <button type="submit" class="btn-blue btn-blue-sys-fix">
+                                            Добавить и связать организации
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="contragent-form__item">
-                            <label for="company_purchase">Тип закупки</label>
-                            <select name="company_purchase" id="company_purchase"
-                                    class="@error('company_purchase') error @enderror">
-                                <option value="" disabled selected data-display=" ">Выберите тип закупки</option>
-                                @foreach($companyPurchases as $companyPurchase)
-                                    <option value="{{ $companyPurchase->id }}">
-                                        {{ $companyPurchase->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="contragent-form__item">
-                            <label for="company_status">Статус контрагента</label>
-                            <select name="company_status" id="company_status"
-                                    class="@error('company_status') error @enderror">
-                                <option value="" disabled selected data-display=" ">Выберите статус контрагента</option>
-                                @foreach($companyStatuses as $companyStatus)
-                                    <option value="{{ $companyStatus->id }}">{{ $companyStatus->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="contragent-form__item">
-                            <label for="company_potentiality">Потенциал</label>
-                            <select name="company_potentiality" id="company_potentiality"
-                                    class="@error('company_potentiality') error @enderror">
-                                <option value="" disabled selected data-display=" ">
-                                    Выберите потенциал контрагента
-                                </option>
-                                @foreach($companyPotentialities as $companyPotentiality)
-                                    <option value="{{ $companyPotentiality->id }}">
-                                        {{ $companyPotentiality->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="contragent-form__item big">
-                            <label for="description">Краткое описание</label>
-                            <textarea name="description" id="description" rows="4">{{ old('description') }}</textarea>
-                        </div>
-
-                        <div class="form-btns">
-                            <button type="button" class="btn-blue"
-                                    onclick="checkFieldsBeforeSubmit(this)">Создать контрагента</button>
-                        </div>
-
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -131,7 +100,6 @@
         <script src="{{ asset('js/jquery.suggestions.min.js') }}"></script>
         <script src="{{ asset('js/swal.min.js') }}"></script>
         <script>
-            autosize(document.querySelectorAll('textarea'));
 
             $("#searchBySSN").suggestions({
                 token: "a6f4b8b9573f6f8b55da539b89887e9ba4167f9a",

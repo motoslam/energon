@@ -52,38 +52,19 @@
     <div class="elem-item-title">Связанные организации</div>
     <div class="elem-item-list">
 
-        <div class="elem-item-box">
-            <div class="elem-item-box-title">OOO “Smit-Yarcevo”</div>
+        @foreach($links as $linkCompany)
+        <div class="elem-item-box sys-no-select">
+            <a href="{{ route('companies.show', ['company' => $linkCompany]) }}"
+               class="elem-item-box-title sys-elem-item-box-title-a">
+                {{ $linkCompany->name }}
+            </a>
             <div class="el-org">
                 <span>ИНН</span>
-                <b>6727014649</b>
+                <b>{{ $linkCompany->ssn }}</b>
             </div>
             <div class="el-org">
                 <span>Адрес</span>
-                <b>301650, Тульская область, г. Новомосковск,
-                    ул. Калинина, д. 15</b>
-            </div>
-            <div class="btn-more-box">
-                <a class="btn-more" href="javascrirpt:void(0)">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </a>
-                <div class="btn-el-items">
-                    <a href="#" class="btn-el btn-del"></a>
-                    <a href="#" class="btn-el btn-edit"></a>
-                </div>
-            </div>
-        </div>
-        <div class="elem-item-box">
-            <div class="elem-item-box-title">OOO “Sk STROY”</div>
-            <div class="el-org">
-                <span>ИНН</span>
-                <b>7733306088</b>
-            </div>
-            <div class="el-org">
-                <span>Адрес</span>
-                <b>115580, Москва, ул. Шипиловская, д. 58, оф. 1</b>
+                <b>{{ $linkCompany->address }}</b>
             </div>
             <div class="btn-more-box">
                 <a class="btn-more" href="javascript:void(0)">
@@ -92,11 +73,16 @@
                     <span></span>
                 </a>
                 <div class="btn-el-items">
-                    <a href="#" class="btn-el btn-del"></a>
+                    <a href="javascript:void(0);"
+                       wire:click="loose({{ $linkCompany->id }}, {{ $company->id }})"
+                       class="btn-el btn-unlink"></a>
                     <a href="#" class="btn-el btn-edit"></a>
+                    <a href="#" class="btn-el btn-task"></a>
                 </div>
             </div>
         </div>
+        @endforeach
+
         <a href="{{ route('companies.bundle', ['company' => $company]) }}" class="add-card">
             <span>Добавить</span><i></i>
         </a>

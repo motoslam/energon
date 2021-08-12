@@ -61,6 +61,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('companies/{company}/bundle', [CompanyController::class, 'bundle'])
         ->middleware(['auth'])->name('companies.bundle');
 
+    Route::post('companies/{company}/bundle', [CompanyController::class, 'binding'])
+        ->middleware(['auth'])->name('companies.binding');
+
     Route::resource('contacts', ContactController::class)
         ->middleware(['auth']);
 

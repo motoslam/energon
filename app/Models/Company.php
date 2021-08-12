@@ -38,14 +38,14 @@ class Company extends Model
 
     protected $appends = ['url'];
 
-    public function bundles()
+    public function links()
     {
-        return $this->hasMany(Company::class);
+        return $this->morphToMany(Company::class, 'linkable');
     }
 
-    public function dad()
+    public function companies()
     {
-        return $this->belongsTo(Company::class);
+        return $this->morphedByMany(Company::class, 'linkable');
     }
 
     public function user()

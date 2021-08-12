@@ -77,19 +77,7 @@ class CompanyController extends Controller
 
         if (!$newCompany->user) {
 
-            $newCompany->user_id = Auth::user()->id;
-            $newCompany->company_type_id = $request->input('company_type') ?? 1;
-            $newCompany->company_status_id = $request->input('company_status') ?? 1;
-            $newCompany->company_purchase_id = $request->input('company_purchase') ?? 1;
-            $newCompany->potentiality_id = $request->input('company_potentiality') ?? 3;
-            $newCompany->city_id = City::whereId($request->input('city'))->firstOr(['id'], function () {
-                return 510;
-            })->id;
-            $newCompany->name = $request->input('name');
-            $newCompany->legal = $request->input('legal');
-            $newCompany->description = $request->input('description');
-            $newCompany->address = $request->input('address');
-            $newCompany->save();
+            $this->build($request, $newCompany);
 
         } else {
 
@@ -173,10 +161,99 @@ class CompanyController extends Controller
         //
     }
 
+    /** Форма для связанных организаций */
     public function bundle(Company $company)
     {
         $this->templateData['company'] = $company;
+        $this->templateData['companies'] = Company::where('user_id', '=', Auth::user()->id)
+            ->get();
 
         return view('company.bundle', $this->templateData);
+    }
+
+    /** Привязка НОВОЙ организации к родительской */
+    public function binding(Request $request, Company $company)
+    {
+        if ($request->input('ssn')) {
+
+            $newCompany = Company::firstOrNew([
+                'ssn' => $request->input('ssn'),
+            ]);
+
+            if (!$newCompany->user) {
+
+                $newCompany = $this->build($request, $newCompany);
+
+                $company->links()->attach($newCompany);
+
+            } else {
+
+                if ($newCompany->user != Auth::user()) {
+
+                    // заявка на перенос
+                    CompanyAwait::create([
+                        'company_id' => $newCompany->id,
+                        'user_id' => Auth::user()->id,
+                        'status' => 0,
+                    ]);
+
+                    return redirect()->route('companies.index')->with(
+                        'success', 'Контрагент появится в списке, как только руководитель одобрит перенос.'
+                    );
+
+                }
+
+                $company->links()->attach($newCompany);
+
+            }
+
+            return redirect()->route('companies.show', ['company' => $company])->with([
+                'success' => 'Организация добавлена в список связанных к ' . $company->name
+            ]);
+
+        } else {
+
+            $this->linking($request, $company);
+        }
+
+    }
+
+    /** Привязка СУЩЕСТВУЮЩЕЙ организации к родительской */
+    public function linking(Request $request, Company $company)
+    {
+        $exCompany = Company::findOrFail($request->input('exist_company'));
+
+        if ($exCompany->id == $company->id) {
+            return redirect()->route('companies.bundle', ['company' => $company])->withError([
+                'ssn' => 'Нельзя связывать организацию саму с собой'
+            ]);
+        }
+
+        $company->links()->attach($exCompany);
+
+        return redirect()->route('companies.show', ['company' => $company])->with([
+            'success' => 'Организация добавлена в список связанных к ' . $company->name
+        ]);
+
+    }
+
+    /** Добавление полей для и сохранение модели */
+    private function build($request, $newCompany)
+    {
+        $newCompany->user_id = Auth::user()->id;
+        $newCompany->company_type_id = $request->input('company_type') ?? 1;
+        $newCompany->company_status_id = $request->input('company_status') ?? 1;
+        $newCompany->company_purchase_id = $request->input('company_purchase') ?? 1;
+        $newCompany->potentiality_id = $request->input('company_potentiality') ?? 3;
+        $newCompany->city_id = City::whereId($request->input('city'))->firstOr(['id'], function () {
+            return 510;
+        })->id;
+        $newCompany->name = $request->input('name');
+        $newCompany->legal = $request->input('legal');
+        $newCompany->description = $request->input('description');
+        $newCompany->address = $request->input('address');
+        $newCompany->save();
+
+        return $newCompany;
     }
 }
