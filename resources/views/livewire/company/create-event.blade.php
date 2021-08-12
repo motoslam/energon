@@ -1,6 +1,6 @@
 <div class="new-event-box" style="display: none;">
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
-    <div class="new-event-box__top">
+    {{--<div class="new-event-box__top">
         <div class="new-event-date">Сегодня, {{ now()->format('H:i') }}</div>
         <a href="javascript:void(0)">Отменить</a>
     </div>
@@ -17,10 +17,10 @@
             <div class="form-new-task__item">
                 <label for="event_type">Тип события</label>
                 <select name="event_type" id="event_type">
-                    {{--<option value="1">Заявка</option>
+                    <option value="1">Заявка</option>
                     <option value="2">Заказ</option>
                     <option value="3">Задача</option>
-                    <option value="4">Телефонный звонок</option>--}}
+                    <option value="4">Телефонный звонок</option>
                     <option value="5">Комментарий</option>
                 </select>
             </div>
@@ -49,6 +49,6 @@
                 </div>
             @endif
         </div>
-    </form>
+    </form>--}}
 
 </div>
