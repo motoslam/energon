@@ -27,17 +27,6 @@
     </div>
 </div>
 
-<div class="message-toast">
-    <div class="message-form message-ok">
-        Контрагент появится в списке, как только руководитель одобрит перенос.
-    </div>
-</div>
-<script>
-    document.addEventListener("load", () => {
-        document.querySelector('.message-toast').classList.add("message-toast-show");
-    });
-</script>
-
 <script src="{{ asset('js/vendor.min.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 <livewire:scripts />

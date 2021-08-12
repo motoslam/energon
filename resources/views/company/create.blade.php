@@ -256,6 +256,8 @@
                             $(btn).closest('form').submit();
                         }
                     })
+                } else {
+                    $(btn).closest('form').submit();
                 }
                 return false;
             }

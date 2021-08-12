@@ -29,7 +29,7 @@ $(function() {
         }
     });
 
-    $('select:not(.js-native)').niceSelect();
+    $('select').niceSelect();
 
     $('.profile').click(function(i) {
         $(this).addClass('active');
