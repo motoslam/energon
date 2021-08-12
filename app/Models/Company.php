@@ -38,6 +38,16 @@ class Company extends Model
 
     protected $appends = ['url'];
 
+    public function bundles()
+    {
+        return $this->hasMany(Company::class);
+    }
+
+    public function dad()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

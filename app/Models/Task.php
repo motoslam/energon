@@ -13,20 +13,26 @@ class Task extends Model
     protected $fillable = [
         'name',
         'user_id',
+        'senior_id',
         'company_id',
         'content',
         'task_status_id',
-        'from_admin',
+        'priority_id',
         'need_confirm',
         'deadline_at',
-        'timer',
-        'priority',
+        'started_at',
         'closed_at'
     ];
 
     protected $casts = [
         'deadline_at' => 'datetime',
+        'started_at' => 'datetime',
         'closed_at' => 'datetime'
+    ];
+
+    protected $appends = [
+        'priority',
+        'expired'
     ];
 
     public function user()
@@ -34,13 +40,37 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function senior()
+    {
+        return $this->belongsTo(User::class, 'senior_id');
+    }
+
     public function status()
     {
-        return $this->belongsTo(TaskStatus::class);
+        return $this->belongsTo(TaskStatus::class, 'task_status_id');
     }
 
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function getPriorityAttribute()
+    {
+        return [
+            'regular' => 'Нормальный',
+            'average' => 'Высокий',
+            'critical' => 'Критичный',
+        ][$this->attributes['priority_id']];
+    }
+
+    public function getExpiredAttribute()
+    {
+        return $this->attributes['deadline_at'] < now();
     }
 }

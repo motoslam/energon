@@ -19,6 +19,7 @@ class TaskStatusSeeder extends Seeder
             ['id' => 2, 'name' => 'В работе'],
             ['id' => 3, 'name' => 'Завершена'],
             ['id' => 4, 'name' => 'Отменена'],
+            ['id' => 5, 'name' => 'Ожидает проверки'],
         ]);
     }
 }

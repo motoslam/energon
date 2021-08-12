@@ -18,23 +18,25 @@ Route::get('/', function () {
 });
 
 Route::get('/alpine', function () {
-    $company = Company::find(1)->first();
+    //$company = Company::find(1)->first();
 
     /*$task = Task::find(1)->first();
     $task->deadline_at = Carbon::createFromFormat('d.m.Y', '11.04.2020');
     $task->save();*/
 
-    $tasks = Task::all()
-        ->groupBy([function($created){
-            return Carbon::parse($created->deadline_at)->format('Y');
-        }, function($created){
-            return Carbon::parse($created->deadline_at)->format('m');
-        }, function($created){
-            return Carbon::parse($created->deadline_at)->format('d');
-        }]);
+    $tasks = Task::all();
+
+    $task = Task::find(1)->first();
+
+    $task->senior_id = Auth::user()->id;
+    $task->need_confirm = true;
+
+    $task->save();
+
 
     //$event->attachable()->associate($contact);
     //$event->save();
+
 
     return $tasks;
 });
@@ -55,6 +57,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('companies/{company}/tasks', [CompanyController::class, 'tasks'])
         ->middleware(['auth'])->name('companies.tasks');
+
+    Route::get('companies/{company}/bundle', [CompanyController::class, 'bundle'])
+        ->middleware(['auth'])->name('companies.bundle');
 
     Route::resource('contacts', ContactController::class)
         ->middleware(['auth']);

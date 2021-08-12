@@ -166,7 +166,7 @@ $(function() {
 
 
 
-    $('.plans-box__right .add-card').click(function() {
+    /*$('.plans-box__right .add-card').click(function() {
         elementClick = $(this).attr("href")
         destination = $(elementClick).offset().top;
         $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination }, 700);
@@ -175,7 +175,7 @@ $(function() {
         }, 500);
 
         return false;
-    });
+    });*/
 
     // $('#time-from').datepicker({
     //     range: 'multiple',

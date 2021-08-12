@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Task;
+use App\Models\TaskStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class TaskController extends Controller
 {
@@ -19,20 +21,21 @@ class TaskController extends Controller
 
     public function create(Request $request)
     {
-        $templateData['company'] = Company::find($request->get('company'));
-        $templateData['btnText'] = 'Создать задачу';
-
-        return view('tasks.create', $templateData);
+        return abort(404);
     }
 
     public function store(Request $request)
     {
-        //
+        return abort(404);
     }
 
     public function show(Task $task)
     {
-        return view('tasks.show', compact('task'));
+        $templateData['task'] = $task;
+        $templateData['user'] = Auth::user();
+        $templateData['statuses'] = TaskStatus::all();
+
+        return view('tasks.show', $templateData);
     }
 
     public function edit($id)
@@ -45,8 +48,10 @@ class TaskController extends Controller
         //
     }
 
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        //
+        $task->delete();
+
+        return redirect()->route('tasks.index')->with('success', 'Задача успешно удалена');
     }
 }

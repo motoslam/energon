@@ -48,7 +48,7 @@
         </a>
     </div>
 
-    {{--
+
     <div class="elem-item-title">Связанные организации</div>
     <div class="elem-item-list">
 
@@ -97,6 +97,8 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="add-card"><span>Добавить</span><i></i></a>
-    </div>--}} <!-- Связанные организации -->
+        <a href="{{ route('companies.bundle', ['company' => $company]) }}" class="add-card">
+            <span>Добавить</span><i></i>
+        </a>
+    </div>
 </div>

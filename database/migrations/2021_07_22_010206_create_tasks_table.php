@@ -15,17 +15,19 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id'); // кому поставлена задача
-            $table->foreignId('company_id')->nullable();
-            $table->foreignId('task_status_id')->default(1);
-            $table->string('name');
-            $table->text('content')->nullable();
-            $table->enum('priority', ['regular', 'average', 'critical'])->defult('regular');
-            $table->boolean('from_admin')->default(false);  // задача от руководителя
-            $table->boolean('need_confirm')->default(false); // Подтв. рук-м, ставится автоматически
-            $table->integer('timer')->nullable(); // время выполнения - часов
-            $table->timestamp('deadline_at')->nullable(); // срок задачи
-            $table->timestamp('closed_at')->nullable(); // дата завершения
+            $table->foreignId('user_id');                               /** Исполнитель задачи */
+            $table->foreignId('senior_id')->nullable();                 /** Постановщик задачи */
+            $table->foreignId('company_id')->nullable();                /** Контрагент */
+            $table->foreignId('task_status_id')->default(1);      /** Статус задачи */
+            $table->string('name');                                     /** Название (заголовок) */
+            $table->text('content')->nullable();                        /** Описание */
+            $table->enum('priority_id', [
+                'regular', 'average', 'critical'
+            ])->defult('regular');                                              /** Приоритет задачи */
+            $table->boolean('need_confirm')->default(false);     /** Требуется проверка выполнения  */
+            $table->timestamp('deadline_at')->nullable();               /** Дедлайн: дата и время */
+            $table->timestamp('started_at')->nullable();                /** Дата и время устан.стат.В работе */
+            $table->timestamp('closed_at')->nullable();                 /** Фактическая дата завершения */
             $table->timestamps();
             $table->softDeletes();
         });

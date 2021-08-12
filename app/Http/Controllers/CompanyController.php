@@ -172,4 +172,11 @@ class CompanyController extends Controller
     {
         //
     }
+
+    public function bundle(Company $company)
+    {
+        $this->templateData['company'] = $company;
+
+        return view('company.bundle', $this->templateData);
+    }
 }
