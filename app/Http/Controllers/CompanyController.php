@@ -203,7 +203,13 @@ class CompanyController extends Controller
 
                 }
 
-                $company->links()->attach($newCompany);
+                if($company->id != $newCompany->id) {
+                    $company->links()->attach($newCompany);
+                }else{
+                    return redirect()->route('companies.bundle', ['company' => $company])->withError([
+                        'ssn' => 'Нельзя связывать организацию саму с собой'
+                    ]);
+                }
 
             }
 

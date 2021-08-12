@@ -144,6 +144,11 @@ class Company extends Model
                 'title' => 'Организация добавлена в систему: ' . Auth::user()->name
             ]);
         });
+        static::creating(function ($company) {
+            //$pos = strpos($company->name, '"');
+            //$pos_end = strpos($company->name, '"');
+            //$company->name = mb_substr($company->name, $pos-1, $pos_end-1);
+        });
         //static::updated(function($company){});
     }
 

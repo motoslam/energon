@@ -27,7 +27,7 @@
                 </div>
 
                 @foreach($companies as $company)
-                    <div class="table-tr">
+                    <div class="table-tr" x-data>
                         <a href="{{ route('companies.show', ['company' => $company]) }}" class="table-td">
                             <b>{{ $company->legal ?? '—' }}</b>
                             <span>{{ $company->name }}</span>
@@ -37,16 +37,27 @@
                             <span>{{ $company->city->name }}</span>
                         </div>
                         <div class="table-td">
-                            <b>Генеральный директор</b>
-                            <span>Максимов Кадим Назимович</span>
+                            @foreach($company->contacts as $contact)
+                            <b>{{ $contact->position ?? '-' }}</b>
+                            <span>{{ $contact->name }}</span>
+
+                            @endforeach
                         </div>
                         <div class="table-td">
-                            <b>Рабочий телефон</b>
-                            <span><a href="tel:+79102807901">+7 910 280 79 01</a></span>
+                            @foreach($company->contacts as $contact)
+                                @foreach($contact->phones as $phone)
+                                    <b>Номер телефона</b>
+                                    <span><a href="tel:{{ $phone->data }}">{{ $phone->data }}</a></span>
+                                @endforeach
+                            @endforeach
                         </div>
                         <div class="table-td">
-                            <b>Рабочий e-mail</b>
-                            <span><a href="mailto:f1981@rambler.ru">f1981@rambler.ru</a></span>
+                            @foreach($company->contacts as $contact)
+                                @foreach($contact->emails as $email)
+                                    <b>Адрес электронной почты</b>
+                                    <span><a href="mailto:{{ $email->data }}">{{ $email->data }}</a></span>
+                                @endforeach
+                            @endforeach
                         </div>
                         <div class="table-td">
                             <b>ИНН</b>
@@ -58,9 +69,9 @@
                         </div>
                         <div class="table-td">
                             <div>
-                                <a href="#" class="del" title="Действующий – постоянный">
-                                <!--{{ $company->companyStatus->name }}-->
-                                    Действ. (П)
+                                <a href="javascript:void(0)" class="in-work2"
+                                   title="{{ $company->companyStatus->name }}">
+                                {{ $company->companyStatus->short_name }}
                                 </a>
                             </div>
                         </div>
