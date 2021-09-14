@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Comment;
 
 use Carbon\Carbon;
 
@@ -144,12 +145,20 @@ class Company extends Model
                 'title' => 'Организация добавлена в систему: ' . Auth::user()->name
             ]);
         });
-        static::creating(function ($company) {
-            //$pos = strpos($company->name, '"');
-            //$pos_end = strpos($company->name, '"');
-            //$company->name = mb_substr($company->name, $pos-1, $pos_end-1);
+        static::updating(function($company){
+            if($company->isDirty('company_status_id')) {
+                $event = $company->events()->create([
+                    'user_id' => Auth::user()->id,
+                    'title' => 'Изменение статуса контрагента'
+                ]);
+                $comment = Comment::create([
+                    'company_id' => $company->id,
+                    'user_id' => auth()->user()->getAuthIdentifier(),
+                    'data' => 'Статус контрагента изменен с ' . $company->getOriginal('company_status_id'),
+                ]);
+                $event->attachable()->associate($comment);
+            }
         });
-        //static::updated(function($company){});
     }
 
     public function getRouteKeyName()

@@ -83,14 +83,7 @@
                             <b>Задача #{{ $task->id }}</b>
                             <div class="title">{{ $task->name }}</div>
                             <div class="desc">{{ $task->content }}</div>
-                            <div class="request-messages-date">
-                                <label for="">Сменить статус</label>
-                                <select name="status" id="status" class="js-native data-messages">
-                                    @foreach($statuses as $status)
-                                        <option value="{{ $status->id }}">{{ $status->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            <button type="button" class="sbtn sbtn-blue">В работу</button>
                         </div>
 
                         @if($task->expired)
@@ -101,9 +94,9 @@
                             </div>
                         @endif
 
-                        <livewire:chat.input :task="$task" :user="$user"/>
-
                         <livewire:chat.messages-list :task="$task" :user="$user"/>
+
+                        <livewire:chat.input :task="$task" :user="$user"/>
 
                     </div>
                 </div>

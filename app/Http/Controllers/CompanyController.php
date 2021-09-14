@@ -51,7 +51,7 @@ class CompanyController extends Controller
             });
 
         if ($company) {
-            $company = $company->only('id', 'ssn', 'url');
+            $company = $company->only('id', 'ssn', 'url', 'name');
         }
 
         return response()->json([
@@ -95,8 +95,8 @@ class CompanyController extends Controller
 
             } else {
 
-                return redirect()->route('companies.show', ['company' => $newCompany])->withErrors([
-                    'ssn' => 'Организация уже была добавлена в список ваших контрагентов.'
+                return redirect()->route('companies.show', ['company' => $newCompany])->with([
+                    'success' => 'Организация уже добавлена в список ваших контрагентов.'
                 ]);
 
             }

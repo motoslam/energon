@@ -48,7 +48,24 @@
         </div>
         <div>
             <span>Город</span>
-            <b>{{ $company->city->name }}</b>
+            <b>
+                {{ $company->city->name }}
+            </b>
+        </div>
+        <div>
+            <span>Текущее время</span>
+            <b>
+                <script>
+                    var tableWatchTime = new Date();
+                </script>
+                <i id="tableWatch"
+                   data-hour="{{ now()->timezone($company->city->timezone_offset)->format('H') }}"
+                   data-min="{{ now()->timezone($company->city->timezone_offset)->format('i') }}"
+                   data-sec="{{ now()->timezone($company->city->timezone_offset)->format('s') }}"
+                >
+                    —
+                </i>
+            </b>
         </div>
         <div>
             <span>Адрес</span>

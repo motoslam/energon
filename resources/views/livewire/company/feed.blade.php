@@ -8,7 +8,7 @@
 
             @forelse($company->events as $event)
                 <div class="events-item {{ $event->attachable->template ?? '' }}">
-                    <div class="events-item-date">{{ $event->created_at->diffForHumans() }}</div>
+                    <div class="events-item-date" style="padding-left: 0;">{{ $event->created_at->diffForHumans() }}</div>
                     <div class="events-item-title">{{ $event->title }}</div>
                     @if( $event->attachable )
                         <livewire:company.attach :event="$event"/>

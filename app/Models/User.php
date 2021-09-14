@@ -32,7 +32,7 @@ class User extends Authenticatable
 
     public function companies()
     {
-        return $this->hasMany(Company::class);
+        return $this->hasMany(Company::class)->orderBy('name');
     }
 
     public function role()

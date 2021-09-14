@@ -48,6 +48,11 @@ class TaskController extends Controller
         //
     }
 
+    public function updateStatus()
+    {
+
+    }
+
     public function destroy(Task $task)
     {
         $task->delete();

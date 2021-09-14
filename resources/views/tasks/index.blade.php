@@ -3,7 +3,7 @@
     <x-slot name="header">
         <div class="content-box__back-line">
             <div class="container">
-                <a href="{{ route('dashboard') }}" class="back">Назад</a>
+                <a href="{{ route('companies.index') }}" class="back">Назад</a>
             </div>
         </div>
     </x-slot>

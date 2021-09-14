@@ -15,7 +15,7 @@
     <livewire:styles />
     <title>{{ $title ?? config('app.name') }}</title>
 </head>
-<body>
+<body style="overflow-y: scroll;">
 <div class="wrapper {{ $wrapperCss ?? '' }}">
     @include('layouts.navigation')
 
