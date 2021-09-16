@@ -12,6 +12,8 @@ use App\Http\Controllers\EventController;
 use App\Models\Company;
 use App\Models\City;
 use App\Models\Task;
+use App\Models\Comment;
+use App\Models\Event;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,16 +33,20 @@ Route::get('/alpine', function () {
 
     //$string = mb_substr($string, (mb_stripos($string, '"')+1), -1);
 
-    $utcOffset = 'UTC+3';
+    //$utcOffset = 'UTC+3';
 
-    $timezone = new DateTimeZone($utcOffset);
+    //$timezone = new DateTimeZone($utcOffset);
 
-    ddd($timezone);
+    //ddd($timezone);
 
     //$timezone = timezone_name_from_abbr(null, $utcOffset * 3600, TRUE);
     //$dateTime = new DateTime();
     //$dateTime->setTimeZone(new DateTimeZone($timezone));
     //$timezone = $dateTime->format('T');
+
+    $company = Company::whereSsn('3665120705')->first();
+    $status = \App\Models\CompanyStatus::find($company->getOriginal('company_status_id'))->name;
+    ddd($status);
 
     return '';
 });
@@ -74,12 +80,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('tasks', TaskController::class)
         ->middleware(['auth']);
 
-    Route::get('stats', function (){
+    Route::get('stats', function () {
         return view('stats.index');
     })->name('stats.index');
 
 });
 
-require __DIR__.'/json.php';
+require __DIR__ . '/json.php';
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

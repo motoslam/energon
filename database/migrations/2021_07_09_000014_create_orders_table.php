@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('company_id')->onDelete('cascade');   /** Контрагент */
             $table->foreignId('user_id');                           /** Пользователь, оформивший заказ */
             $table->string('internal_id');                          /** Номер заказа из договора */
+            $table->text('data')->nullable();                       /** Комментарий */
             $table->decimal('total', 10, 2);           /** Сумма заказа */
             $table->date('order_date')->nullable();                 /** Дата заказа (если пусто то created_at) */
             $table->timestamps();

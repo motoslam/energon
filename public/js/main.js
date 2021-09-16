@@ -15,6 +15,8 @@ $(function () {
                 }
             }
         });
+
+        $('.js-decimal').inputmask('Regex', {regex: "^[0-9]{1,6}(\\.\\d{1,2})?$"});
     });
 
 
@@ -219,7 +221,7 @@ $(function () {
         tableWatchTime.setHours(h, m, s);
         setInterval(
             () => $('#tableWatch').html(getCurrentTimeForWatch()),
-            1000
+            500
         );
     }
 
@@ -227,9 +229,9 @@ $(function () {
 
 function getCurrentTimeForWatch() {
     tableWatchTime.setSeconds(tableWatchTime.getSeconds() + 1);
-    let d = Math.round(Date.now() / 1000) % 2,
+    let d = Math.round(Date.now() / 500) % 2,
         timeString = ('0' + tableWatchTime.getHours()).slice(-2) + ':' + ('0' + tableWatchTime.getMinutes()).slice(-2);
-    return d ? timeString : timeString.replace(/:/, ' ');
+    return d ? timeString : timeString.replace(/:/, '<font style="color:#fff">:</font>');
 }
 
 $('.plans-request .btn-blue').click(function (e) {
@@ -242,16 +244,6 @@ $('.plans-request .btn-blue').click(function (e) {
     e.preventDefault();
     $('.plans-request-info').hide();
     $('.plans-request-form').show();
-});
-
-$('.btn-new-event').click(function (e) {
-    e.preventDefault();
-    $('.new-event-box').show();
-});
-
-$('.new-event-box__top a').click(function (e) {
-    e.preventDefault();
-    $('.new-event-box').hide();
 });
 
 

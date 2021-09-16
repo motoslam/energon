@@ -838,6 +838,34 @@ a.sys-elem-item-box-title-a {
 .info-item-address b i {
     color: #424552;
     font-style: normal;
-    font-weight: normal;
-    font-family: Helvetica, sans-serif;
+}
+
+.events-item-title{
+    font-size: 13px;
+}
+
+.form-new-task__box div:first-child {
+    width: 58%;
+}
+
+.form-new-task__box div:last-child {
+    width: 38%;
+}
+
+.form-new-task__box .nice-select {
+    width: 100% !important;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+input{
+    color: #000;
+}
+
+.new-task textarea{
+    font-weight: 400;
+}
+
+.form-new-task__box .nice-select{
+    border-radius: 10px;
 }

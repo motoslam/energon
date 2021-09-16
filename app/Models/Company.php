@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
+use App\Models\CompanyStatus;
 
 use Carbon\Carbon;
 
@@ -139,24 +140,21 @@ class Company extends Model
 
     protected static function booted()
     {
-        static::created(function ($company) {
-            $company->events()->create([
-                'user_id' => Auth::user()->id,
-                'title' => 'Организация добавлена в систему: ' . Auth::user()->name
-            ]);
-        });
         static::updating(function($company){
             if($company->isDirty('company_status_id')) {
                 $event = $company->events()->create([
                     'user_id' => Auth::user()->id,
-                    'title' => 'Изменение статуса контрагента'
+                    'title' => 'Изменение статуса'
                 ]);
+                $oldStatus = CompanyStatus::find($company->getOriginal('company_status_id'))->name;
+                $newStatus = CompanyStatus::find($company->getChanges('company_status_id'))->name;
                 $comment = Comment::create([
                     'company_id' => $company->id,
                     'user_id' => auth()->user()->getAuthIdentifier(),
-                    'data' => 'Статус контрагента изменен с ' . $company->getOriginal('company_status_id'),
+                    'data' => 'Статус контрагента изменен с ' . $oldStatus . ' на ' . $newStatus,
                 ]);
                 $event->attachable()->associate($comment);
+                $event->save();
             }
         });
     }

@@ -17,8 +17,7 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable();
             $table->foreignId('company_id')->onDelete('cascade');
-            $table->string('title');
-            $table->text('content')->nullable();
+            $table->string('title')->nullable();
             $table->nullableMorphs('attachable');
             $table->timestamps();
         });

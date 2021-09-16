@@ -35,6 +35,11 @@ class User extends Authenticatable
         return $this->hasMany(Company::class)->orderBy('name');
     }
 
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);

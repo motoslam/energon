@@ -13,6 +13,7 @@ class Order extends Model
         'company_id',
         'user_id',
         'internal_id',
+        'data',
         'total',
         'order_date'
     ];

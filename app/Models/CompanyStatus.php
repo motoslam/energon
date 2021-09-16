@@ -20,6 +20,8 @@ class CompanyStatus extends Model
         return $this->hasMany(Company::class);
     }
 
+    /** Setters & Getters */
+
     public function scopeAllowed($query)
     {
         return $query->where('id', '<>', 5)->get();

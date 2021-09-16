@@ -52,7 +52,7 @@
                 {{ $company->city->name }}
             </b>
         </div>
-        <div>
+        <div wire:ignore>
             <span>Текущее время</span>
             <b>
                 <script>

@@ -13,12 +13,16 @@ class Event extends Model
         'user_id',
         'company_id',
         'title',
-        'content'
     ];
 
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function attachable()
