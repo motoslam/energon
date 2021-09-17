@@ -89,8 +89,8 @@
 
             function removeContact(id) {
                 Swal.fire({
-                    title: 'Вы уверены?',
-                    text: 'После удаления восстановить контакт будет невозможно.',
+                    title: 'Удаляем?',
+                    text: 'Контакт будет безвозвратно удален.',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

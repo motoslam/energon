@@ -1,6 +1,5 @@
-<!-- Because you are alive, everything is possible. - Thich Nhat Hanh -->
-
 <div class="elem-line" {{ in_array($company->company_status_id, [2, 3]) ? '' : 'hidden' }}>
+    <!-- Because you are alive, everything is possible. - Thich Nhat Hanh -->
     <div class="elem-line__content">
         <div>
             <span>№ Договора</span>

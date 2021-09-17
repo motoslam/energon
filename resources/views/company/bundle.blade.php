@@ -5,7 +5,15 @@
             <div class="container">
                 <a href="{{ url()->previous() }}" class="back">Назад</a>
                 <div class="form-contragent-top">
-                    <div class="title">Связанная организация</div>
+                    <div class="title">
+                        Связанная организация
+                        <div class="bundle-subtitle">
+                            контрагент
+                            <a href="{{ route('companies.show', ['company' => $company]) }}">
+                                {{ $company->full_name }}
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -13,45 +21,41 @@
 
     <div class="content-box__info-item">
         <div class="container">
-            <div class="plans-box">
-                <div class="plans-box__left">
-                    <div class="plans-request">
-                        <div class="plans-request-form" x-data>
-                            <div class="title">Выбрать из своих организаций</div>
-                            <form action="{{ route('companies.binding', ['company' => $company]) }}"
-                                  method="post" x-ref="formone">
-                                @csrf
-                                <div class="form-request__item sys-custom-select clearfix"
-                                     style="margin-bottom: 26px;">
-                                    <select name="exist_company" id="exist_company">
-                                        <option value="" selected disabled>Список организаций</option>
-                                        @foreach($companies as $companyItem)
-                                            <option value="{{ $companyItem->id }}">{{ $companyItem->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-request__item">
-                                    <button type="submit" class="btn-blue" @click="$refs.formone.submit">Cвязать организации</button>
-                                </div>
-                            </form>
-                        </div>
+            <div class="bundle-box">
+                <div class="bundle-box-column">
+                    <div class="bundle-box-tile">
+                        <div class="bundle-title">Выбрать из добавленных ранее организаций:</div>
+                        <livewire:company.bundle-from-contragent :contragent="$company"/>
                     </div>
                 </div>
-                <div class="plans-box__right">
-                    <div class="dates-plans scrollbar-outer sys-fix-title">
-                        <div class="date-plan-item">
-                            <div class="title quote">или добавить новую</div>
-                            <div class="date-notes">
-                                <form action="{{ route('companies.binding', ['company' => $company]) }}"
-                                      method="post">
-                                    @csrf
-                                    <div class="sys-fix-input">
-                                        <input type="search" id="searchBySSN" @error('ssn') error @enderror
-                                        placeholder="Поиск организаций по названию, ИНН, ОГРН и КПП"
-                                               autocomplete="off">
+                <div class="bundle-box-column">
+                    <div class="bundle-box-tile">
+                        <div class="bundle-title">Добавить новую организацию</div>
+                        <div>
+                            <form action="{{ route('companies.binding', ['company' => $company]) }}"
+                                  method="post" autocomplete="off">
+                                @csrf
+                                <div class="bundle-search">
+                                    <div class="bundle-search-icon">
+                                        <svg width="18" height="18" class="w-4 lg:w-auto" viewBox="0 0 18 18"
+                                             fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M8.11086 15.2217C12.0381 15.2217 15.2217 12.0381 15.2217 8.11086C15.2217 4.18364 12.0381 1 8.11086 1C4.18364 1 1 4.18364 1 8.11086C1 12.0381 4.18364 15.2217 8.11086 15.2217Z"
+                                                stroke="#455A64" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M16.9993 16.9993L13.1328 13.1328" stroke="#455A64"
+                                                  stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
                                     </div>
+                                    <div class="bundle-search-input">
+                                        <input type="text" id="searchBySSN"
+                                               autocomplete="false"
+                                               placeholder="Поиск организаций по названию, ИНН, ОГРН и КПП"/>
+                                    </div>
+                                </div>
+                                <div class="bundle-result">
                                     @if ($errors->any())
-                                        <div class="message-form message-error" style="margin-left: 0; margin-bottom: 25px">
+                                        <div class="message-form message-error"
+                                             style="margin-left: 0; margin-bottom: 25px">
                                             {{ $errors->first() }}
                                         </div>
                                     @endif
@@ -61,7 +65,8 @@
                                     <input type="hidden" id="legal" name="legal" value="{{ old('legal') }}"/>
                                     <input type="hidden" id="address" name="address" value="{{ old('address') }}"/>
                                     <input type="hidden" id="state" name="state" value="{{ old('state') }}"/>
-                                    <div class="found-company" id="company_founded" @if (!$errors->any()) hidden @endif >
+                                    <div class="found-company" id="company_founded"
+                                         @if (!$errors->any()) hidden @endif >
                                         <div class="found-company-closed" id="company_error" hidden>
                                             <div class="message-form message-lock" id="company_error_message"></div>
                                         </div>
@@ -87,8 +92,8 @@
                                             Добавить и связать организации
                                         </button>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -200,14 +205,14 @@
             }
 
             function checkFieldsBeforeSubmit(btn) {
-                if($('#ssn').val() === '') {
+                if ($('#ssn').val() === '') {
                     $('#searchBySSN').addClass('error');
                     return false;
                 }
-                if ( !$('#company_type').val() ||
+                if (!$('#company_type').val() ||
                     !$('#company_purchase').val() ||
                     !$('#company_status').val() ||
-                    !$('#company_potentiality').val() ) {
+                    !$('#company_potentiality').val()) {
 
                     Swal.fire({
                         title: 'Это все?',
@@ -224,7 +229,7 @@
                             $(btn).closest('form').submit();
                         }
                     })
-                }else{
+                } else {
                     $(btn).closest('form').submit();
                 }
                 return false;

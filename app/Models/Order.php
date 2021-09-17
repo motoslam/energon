@@ -22,6 +22,8 @@ class Order extends Model
         'order_date' => 'date',
     ];
 
+    protected $appends = ['sum'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -30,6 +32,11 @@ class Order extends Model
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function getSumAttribute()
+    {
+        return number_format($this->total, 2, '.', ' ');
     }
 
 }

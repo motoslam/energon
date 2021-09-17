@@ -76,6 +76,11 @@ class User extends Authenticatable
         return $this->hasMany(CompanyAwait::class);
     }
 
+    public function calls()
+    {
+        return $this->hasMany(Call::class);
+    }
+
     /** closed methods */
     public function sendPasswordResetNotification($token)
     {

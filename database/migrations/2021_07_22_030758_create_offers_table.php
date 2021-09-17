@@ -15,9 +15,12 @@ class CreateOffersTable extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id');
-            $table->foreignId('user_id');
-            $table->string('internal_id');   /** Внешний ID заявки (в документах компании) */
+            $table->foreignId('company_id');                /** Контрагент */
+            $table->foreignId('user_id');                   /** Менеджер */
+            $table->foreignId('contact_id')->nullable();    /** Контактное лицо */
+            $table->string('internal_id');                  /** Внешний ID заявки (в документах компании) */
+            $table->text('data')->nullable();               /** Комментарий */
+            $table->date('offer_date')->nullable();         /** Дата заявки */
             $table->timestamps();
         });
     }

@@ -28,7 +28,10 @@
                             @foreach($company->contacts as $contact)
                                 <b>{{ $contact->position ?? '-' }}</b>
                                 <span>{{ $contact->name }}</span>
-
+                                @for ($i = 1; $i < max($contact->phones->count(), $contact->emails->count()); $i++)
+                                    <b class="sys-no-select">&nbsp;</b>
+                                    <span class="sys-no-select">&nbsp;</span>
+                                @endfor
                             @endforeach
                         </div>
                         <div class="table-td">
@@ -37,6 +40,10 @@
                                     <b>Номер телефона</b>
                                     <span><a href="tel:{{ $phone->data }}">{{ $phone->data }}</a></span>
                                 @endforeach
+                                @for ($i = 0; $i < (max($contact->phones->count(), $contact->emails->count()) - $contact->phones->count()); $i++)
+                                    <b class="sys-no-select">&nbsp;</b>
+                                    <span class="sys-no-select">&nbsp;</span>
+                                @endfor
                             @endforeach
                         </div>
                         <div class="table-td">
@@ -45,6 +52,10 @@
                                     <b>Адрес электронной почты</b>
                                     <span><a href="mailto:{{ $email->data }}">{{ $email->data }}</a></span>
                                 @endforeach
+                                @for ($i = 0; $i < (max($contact->phones->count(), $contact->emails->count()) - $contact->emails->count()); $i++)
+                                    <b class="sys-no-select">&nbsp;</b>
+                                    <span class="sys-no-select">&nbsp;</span>
+                                @endfor
                             @endforeach
                         </div>
                         <div class="table-td">

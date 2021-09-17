@@ -14,12 +14,13 @@ class ContactController extends Controller
 {
     public function index()
     {
+        // TODO: Оптимизировать tailwind.css
 
+        return view('contact.index');
     }
 
     public function create(Request $request)
     {
-
         $templateData['company'] = null;
         if ($request->get('company')) {
             $company = $request->user()->companies->where('ssn', $request->get('company'))->first();

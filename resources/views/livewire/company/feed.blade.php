@@ -6,7 +6,7 @@
         <livewire:company.create-event :company="$company"/>
 
         @forelse($events as $event)
-            <div class="events-item {{ $event->attachable->template ?? '' }}">
+            <div class="events-item {{ $event->template }}">
                 <div class="events-item-date" style="padding-left: 0;">{{ $event->created_at->diffForHumans() }}</div>
                 <div class="events-item-title">{{ $event->title }}</div>
                 @if( $event->attachable )
@@ -27,20 +27,29 @@
         </a>
         <div class="select-box" wire:ignore>
             <span>Категория:</span>
-            <select name="filter_category" id="filter_category">
-                <option value="Телефонный звонок">Телефонный звонок</option>
-                <option value="Заказ">Заказ</option>
-                <option value="Заявка">Заявка</option>
-                <option value="Заявка">Задача</option>
+            <select name="filter_category" id="filter_category"
+                    onchange="Livewire.emit('setFilterType', this.value);">
+                <option value="all">Все события</option>
+                <option value="comment">Комментарии</option>
+                <option value="call">Телефонные звонки</option>
+                <option value="order">Заказы</option>
+                <option value="offer">Заявки</option>
+                <option value="task">Задачи</option>
             </select>
         </div>
         <div class="date-range">
             <div class="date-range-item">
-                <input placeholder="С" class="start_one" data-multiple-dates-separator=" - "
-                       type="text" class="date" id="datepicker">
+                <input wire:model="filterFromDate" placeholder="С"
+                       class="start_one date" data-multiple-dates-separator=" - "
+                       type="text" id="datepicker"
+                       onchange="console.log(this.dispatchEvent(new InputEvent('input')))"
+                />
             </div>
             <div class="date-range-item">
-                <input placeholder="По" type="text" class="date end_one">
+                <input wire:model="filterToDate" placeholder="По" type="text"
+                       class="date end_one"
+                       onchange="console.log(this.dispatchEvent(new InputEvent('input')))"
+                />
             </div>
         </div>
     </div>

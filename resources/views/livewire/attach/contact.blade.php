@@ -5,7 +5,7 @@
         <span><a href="javascript:void(0);">Детальная информация</a></span>
     </div>
     <div class="events-item-info-person">
-        <b>{{ $event->attachable->created_at->diffForHumans() }}</b>
+        <b>Ответственный менеджер</b>
         <span>{{ $event->attachable->user->name }}</span>
     </div>
 </div>

@@ -50,6 +50,7 @@ class Index extends Component
                     ->orWhere('ssn', 'like', $searchTerm)
                     ->orWhere('legal', 'like', $searchTerm);
             })
+            ->orderBy('name', 'ASC')
             ->get();
 
         return view('livewire.company.index');

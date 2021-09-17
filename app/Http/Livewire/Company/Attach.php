@@ -24,8 +24,13 @@ class Attach extends Component
             $view = 'livewire.attach.contact';
         }
         if ($this->event->attachable_type == "App\Models\Comment") {
-            $this->template = 'comment';
             $view = 'livewire.attach.comment';
+        }
+        if ($this->event->attachable_type == "App\Models\Offer") {
+            $view = 'livewire.attach.offer';
+        }
+        if ($this->event->attachable_type == "App\Models\Call") {
+            $view = 'livewire.attach.call';
         }
         return $view ? view($view) : '<div></div>';
     }

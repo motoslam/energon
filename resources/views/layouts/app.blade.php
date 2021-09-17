@@ -33,5 +33,15 @@
 <script src="{{ asset('js/app.js') }}"></script>
 {{ $scripts ?? '' }}
 
+<script>
+    window.addEventListener('swal:modal', event => {
+        Swal.fire({
+            title: event.detail.message,
+            text: event.detail.text,
+            icon: event.detail.type,
+        })
+    });
+</script>
+
 </body>
 </html>

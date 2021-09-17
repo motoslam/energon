@@ -116,6 +116,11 @@ class Company extends Model
         return $this->hasMany(Event::class)->orderBy('created_at', 'DESC');
     }
 
+    public function calls()
+    {
+        return $this->hasMany(Call::class);
+    }
+
     /** Setters & Getters */
     public function getFullNameAttribute()
     {
@@ -140,7 +145,7 @@ class Company extends Model
 
     protected static function booted()
     {
-        static::updating(function($company){
+        /*static::updating(function($company){
             if($company->isDirty('company_status_id')) {
                 $event = $company->events()->create([
                     'user_id' => Auth::user()->id,
@@ -156,7 +161,7 @@ class Company extends Model
                 $event->attachable()->associate($comment);
                 $event->save();
             }
-        });
+        });*/
     }
 
     public function getRouteKeyName()

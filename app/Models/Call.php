@@ -5,22 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Offer extends Model
+class Call extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'company_id',
         'user_id',
-        'internal_id',
-        'data',
         'contact_id',
-        'offer_date'
+        'data'
     ];
 
-    protected $casts = [
-        'offer_date' => 'date',
-    ];
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 
     public function user()
     {
@@ -30,10 +29,5 @@ class Offer extends Model
     public function contact()
     {
         return $this->belongsTo(Contact::class);
-    }
-
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
     }
 }

@@ -6,11 +6,7 @@
         <a href="javascript:void(0)" @click.prevent="active = false">Отменить</a>
     </div>
 
-    <script>
-        var eventType = 'comment';
-    </script>
-
-    <form wire:submit.prevent="store()" class="form-new-task events-item task new-task green">
+    <form wire:submit.prevent="store()" class="form-new-task events-item task new-task ss-{{ $type }}">
 
         <div class="title">Новое событие</div>
         <div class="form-new-task__box" wire:ignore>
@@ -19,18 +15,20 @@
                 <select name="js_type" id="js_type"
                         onchange="Livewire.emit('changeEventType', this.value)">
                     <option value="comment">Комментарий</option>
+                    <option value="call">Телефонный звонок</option>
                     <option value="order">Заказ</option>
+                    <option value="offer">Заявка</option>
                 </select>
             </div>
         </div>
 
-        <div class="form-new-task__box" x-show="type=='order'" x-cloak>
+        <div class="form-new-task__box" x-show="type=='order' || type=='offer'" x-cloak>
             <div class="form-new-task__item">
-                <label for="internal_id">Номер заказа</label>
+                <label for="internal_id">Номер документа</label>
                 <input type="text" name="internal_id" id="internal_id"
                        wire:model="internal_id" />
             </div>
-            <div class="form-new-task__item">
+            <div class="form-new-task__item" x-show="type=='order'" x-cloak>
                 <label for="order_sum">Сумма</label>
                 <input type="text" name="order_sum" id="order_sum"
                        wire:model="order_sum" />
@@ -42,7 +40,7 @@
             <textarea name="data" id="data" wire:model="data"></textarea>
         </div>
 
-        <div class="form-new-task__box" wire:ignore x-show="type=='comment'" x-cloak>
+        <div class="form-new-task__box" wire:ignore x-show="type=='comment' || type=='offer' || type=='call'" x-cloak>
             <div class="form-new-task__item" style="width: 100%;">
                 <label for="contact">Контактное лицо </label>
                 <select name="contact" id="contact"
