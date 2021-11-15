@@ -1,0 +1,85 @@
+.admin-task{
+    border-radius: 5px;
+    border: 1px #e5e5e5 solid;
+    padding: 10px;
+    transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    margin-bottom: 10px;
+}
+
+.admin-task:hover{
+    -webkit-box-shadow: 0px 13px 28px rgb(0 0 0 / 5%);
+    box-shadow: 0px 13px 28px rgb(0 0 0 / 5%);
+}
+
+.admin-task-date{
+    font-size: 11px;
+    color: #8f8f8f;
+}
+
+.admin-task-title{
+    font-size: 13px;
+    color: #000;
+    margin: 5px 0;
+}
+
+.admin-task-user{
+    font-size: 13px;
+    color: #00257b;
+    margin: 5px 0;
+}
+
+.admin-task .btn{
+    width: 100%;
+}
+
+.admin-task-deadline{
+    font-size: 13px;
+    color: #8f8f8f;
+}
+
+.admin-task-deadline span{
+    color: #000
+}
+
+.admin-task-priority{
+    margin-bottom: 10px;
+}
+.admin-task-priority span{
+    display: block;
+    width: 50px;
+    height: 7px;
+    border-radius: 5px;
+}
+.admin-task-priority-1{
+    background: #4cc5ab;
+}
+.admin-task-priority-2{
+    background: #dfbc41;
+}
+.admin-task-priority-3{
+    background: #f14d75;
+}
+
+.admin-task-new{
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px #e5e5e5 solid;
+    padding: 10px;
+    transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.admin-task-new:hover{
+    -webkit-box-shadow: 0px 13px 28px rgb(0 0 0 / 5%);
+    box-shadow: 0px 13px 28px rgb(0 0 0 / 5%);
+}

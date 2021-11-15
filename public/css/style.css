@@ -590,6 +590,11 @@ select {
 .note-link {
     background-image: url(../img/note-ico.svg); }
 
+.contact-book {
+    background-image: url(../img/contact-book.svg);
+    background-size: 14px;
+}
+
 .log-out-link {
     background-image: url(../img/log-out-ico.svg);
     background-color: #FBFBFB;

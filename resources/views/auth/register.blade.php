@@ -30,9 +30,9 @@
             <div class="form-item">
                 <a href="#" class="pass-show" tabindex="-1"></a>
                 <label for="password_confirmation">Подтверждение пароля</label>
-                <input id="password_confirmation" type="password_confirmation"
+                <input id="password_confirmation" type="password"
                        class="@error('password_confirmation') error @enderror"
-                       name="password" required autocomplete="off">
+                       name="password_confirmation" required autocomplete="off">
             </div>
             <button id="submit" class="btn-blue" type="submit">Зарегистрироваться</button>
             @if (Route::has('login'))

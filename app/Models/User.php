@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Notifications\ResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -28,7 +29,12 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'settings' => 'array'
     ];
+
+    protected $attributes = array(
+        'settings' => ''
+    );
 
     public function companies()
     {
@@ -79,6 +85,25 @@ class User extends Authenticatable
     public function calls()
     {
         return $this->hasMany(Call::class);
+    }
+
+    public function setting(string $name, $default = null)
+    {
+        if(!$this->settings) $this->settings = [];
+        if (array_key_exists($name, $this->settings)) {
+            return $this->settings[$name];
+        }
+        return $default;
+    }
+
+    public function settings(array $revisions, bool $save = true): self
+    {
+        if(!$this->settings) $this->settings = [];
+        $this->settings = array_merge($this->settings, $revisions);
+        if ($save) {
+            $this->save();
+        }
+        return $this;
     }
 
     /** closed methods */

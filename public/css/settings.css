@@ -1,0 +1,42 @@
+.form-check {
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 1.5em;
+    margin-bottom: 0.125rem;
+}
+
+.form-check-input[type=checkbox] {
+    border-radius: 0.25em;
+}
+
+.form-check .form-check-input {
+    float: left;
+    margin-left: -1.5em;
+}
+
+.form-check-input {
+    width: 1em;
+    height: 1em;
+    margin-top: 0.25em;
+    vertical-align: top;
+}
+
+.form-check-label {
+    padding-top: 3px;
+    display: inline-block;
+}
+
+.settings-buttons{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.settings-buttons .btn{
+    width: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.settings-success .message-form{
+    margin: 0 0 25px 0;
+}

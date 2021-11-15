@@ -27,7 +27,7 @@
         </a>
         <div class="select-box" wire:ignore>
             <span>Категория:</span>
-            <select name="filter_category" id="filter_category"
+            <select name="type" id="type"
                     onchange="Livewire.emit('setFilterType', this.value);">
                 <option value="all">Все события</option>
                 <option value="comment">Комментарии</option>
@@ -37,19 +37,12 @@
                 <option value="task">Задачи</option>
             </select>
         </div>
-        <div class="date-range">
-            <div class="date-range-item">
-                <input wire:model="filterFromDate" placeholder="С"
-                       class="start_one date" data-multiple-dates-separator=" - "
-                       type="text" id="datepicker"
-                       onchange="console.log(this.dispatchEvent(new InputEvent('input')))"
-                />
+        <div class="browser-date-range">
+            <div class="input">
+                <input type="date" wire:model="from" placeholder="C" />
             </div>
-            <div class="date-range-item">
-                <input wire:model="filterToDate" placeholder="По" type="text"
-                       class="date end_one"
-                       onchange="console.log(this.dispatchEvent(new InputEvent('input')))"
-                />
+            <div class="input">
+                <input type="date" wire:model="to" placeholder="По" class="last" />
             </div>
         </div>
     </div>

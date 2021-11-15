@@ -1,11 +1,11 @@
 <div class="plans-request" id="objToStick">
     {{-- Because she competes with no one, no one can compete with her. --}}
     <div class="plans-request-form">
-        <div class="title">Новая задача</div>
+        <div class="title">Быстрое добавление задачи</div>
         <form action="/" method="POST" class="form-request" onsubmit="return false;">
             <div class="form-request__item">
                 <label for="name">Заголовок</label>
-                <input type="text" wire:model="name" id="name"
+                <input type="text" wire:model="name" id="name" autocomplete="off"
                        name="name" class="@error('name') error @enderror">
             </div>
             <div class="form-request__item">

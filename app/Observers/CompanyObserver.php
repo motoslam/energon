@@ -15,9 +15,14 @@ class CompanyObserver
         ]);
     }
 
-    public function updated(Company $company)
+    public function updating(Company $company)
     {
-        //
+        if($company->isDirty('company_status_id')) {
+            $company->events()->create([
+                'user_id' => auth()->user()->id,
+                'title' => 'Изменение статуса'
+            ]);
+        }
     }
 
     public function deleted(Company $company)

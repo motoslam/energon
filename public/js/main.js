@@ -33,6 +33,17 @@ $(function () {
 
     $('select').niceSelect();
 
+    $('.profile_a').click(function(e){
+        $(this).toggleClass('active');
+        var profileHide = $('.profile-hide');
+
+        if (profileHide.css('display') != 'block') {
+            profileHide.show(300);
+        } else {
+            profileHide.hide(300);
+        }
+    });
+
     $('.profile').click(function (i) {
         $(this).addClass('active');
         var profileHide = $('.profile-hide');
@@ -42,7 +53,7 @@ $(function () {
 
 
             var firstClick = true;
-            $(document).bind('click.Profile', function (i) {
+            /*$(document).bind('click.Profile', function (i) {
                 if (!firstClick && $(i.target).closest('.profile-hide').length == 0) {
                     profileHide.hide(300);
                     $('.profile').removeClass('active');
@@ -50,7 +61,7 @@ $(function () {
                 }
 
                 firstClick = false;
-            });
+            });*/
         }
 
         i.preventDefault();
@@ -116,6 +127,14 @@ $(function () {
             div2.has(e.target).length === 0) {
             $('.btn-more').removeClass('active');
             // $('.btn-el-items').css('opacity', '0');
+        }
+        var div3 = $(".profile_a");
+        if(div3.hasClass('active')) {
+            if (!div3.is(e.target) &&
+                div3.has(e.target).length === 0) {
+                div3.removeClass('active');
+                $('.profile-hide').hide(300);
+            }
         }
     });
 
@@ -214,7 +233,7 @@ $(function () {
         $('body').toggleClass('overlay');
     });
 
-    if ($('#tableWatch') && tableWatchTime) {
+    if ($('#tableWatch').length) {
         let h = $('#tableWatch').data('hour'),
             m = $('#tableWatch').data('min'),
             s = $('#tableWatch').data('sec');

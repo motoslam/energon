@@ -1,9 +1,11 @@
 <div class="date-note-item {{ $task->priority_id }} {{ $expired ? 'task-expired' : '' }}">
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
     <div class="time">
+        @if($task->deadline_at)
         <div class="time-start">
             {{ $task->deadline_at->format('H:i') }}
         </div>
+        @endif
         @if($expired)
             <div class="time-finish">
                 {{ $expired_at > 0 ? $expired_at . ' дн.' : '' }}

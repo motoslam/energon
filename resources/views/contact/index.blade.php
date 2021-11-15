@@ -6,6 +6,9 @@
                 <a href="{{ route('companies.index') }}" class="back">Назад</a>
                 <div class="form-contragent-top">
                     <div class="title">Контакты</div>
+                    <a href="{{ route('contacts.create') }}" class="add-contact">
+                        Добавить контакт
+                    </a>
                 </div>
             </div>
         </div>
@@ -16,7 +19,6 @@
             <livewire:contact.search />
         </div>
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
     </div>
 
 </x-app-layout>

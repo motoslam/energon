@@ -9,6 +9,11 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\TaskController as PlannerController;
+use App\Http\Controllers\AlertController;
+use App\Http\Controllers\SettingController;
 use App\Models\Company;
 use App\Models\City;
 use App\Models\Task;
@@ -44,11 +49,15 @@ Route::get('/alpine', function () {
     //$dateTime->setTimeZone(new DateTimeZone($timezone));
     //$timezone = $dateTime->format('T');
 
-    $company = Company::whereSsn('3665120705')->first();
-    $status = \App\Models\CompanyStatus::find($company->getOriginal('company_status_id'))->name;
-    ddd($status);
+    //$user = auth()->user();
+//
+    //$user->role_id = 1;
+    //$user->save();
 
-    return '';
+    //return $user->role->name;
+    $date = '2021-11-15 15:42';
+    $datetime = Carbon::createFromFormat('Y-m-d H:i', $date)->toDateTimeString();
+    return $datetime;
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -66,23 +75,39 @@ Route::middleware(['auth'])->group(function () {
         ->middleware(['auth'])->name('companies.tasks');
 
     Route::get('companies/{company}/bundle', [CompanyController::class, 'bundle'])
-        ->middleware(['auth'])->name('companies.bundle');
+        ->name('companies.bundle');
 
     Route::post('companies/{company}/bundle', [CompanyController::class, 'binding'])
-        ->middleware(['auth'])->name('companies.binding');
+        ->name('companies.binding');
 
-    Route::resource('contacts', ContactController::class)
-        ->middleware(['auth']);
+    Route::resource('contacts', ContactController::class);
 
     Route::post('/events/add', [EventController::class, 'store'])
         ->name('events.add');
 
-    Route::resource('tasks', TaskController::class)
-        ->middleware(['auth']);
+    Route::post('tasks/{task}/go', [TaskController::class, 'go'])->name('tasks.go');
+    Route::resource('tasks', TaskController::class);
 
     Route::get('stats', function () {
         return view('stats.index');
     })->name('stats.index');
+
+    Route::get('alerts', [AlertController::class, 'index'])->name('alerts.index');
+
+    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('settings', [SettingController::class, 'store'])->name('settings.store');
+
+    Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function () {
+
+        Route::get('/', [AdminController::class, 'index'])->name('index');
+
+        Route::get('/users/trash', [UserController::class, 'trash'])->name('users.trash');
+        Route::post('/users/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
+        Route::resource('users', UserController::class);
+
+        Route::resource('tasks', PlannerController::class);
+
+    });
 
 });
 

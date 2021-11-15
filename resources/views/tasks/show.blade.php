@@ -23,7 +23,7 @@
                         @if($task->company)
                             <div class="request-info__item">
                                 <span>Контрагент</span>
-                                <b>{{ $task->company->name }}</b>
+                                <a href="#" class="blacklink">{{ $task->company->name }}</a>
                             </div>
                         @endif
                         <div class="request-info__item">
@@ -42,10 +42,12 @@
                                 {{ $task->status->name }}
                             </b>
                         </div>
+                        @if($task->deadline_at)
                         <div class="request-info__item">
                             <span>Крайний срок</span>
                             <b>{{ $task->deadline_at->format('d.m.Y H:i') }}</b>
                         </div>
+                        @endif
                         <div class="request-info__item request-info__priority
                                     request-info__priority_{{ $task->priority_id }}">
                             <span>Приоритет</span>
@@ -83,10 +85,15 @@
                             <b>Задача #{{ $task->id }}</b>
                             <div class="title">{{ $task->name }}</div>
                             <div class="desc">{{ $task->content }}</div>
-                            <button type="button" class="sbtn sbtn-blue">В работу</button>
+                            @if($task->task_status_id == 1)
+                            <form action="{{ route('tasks.go', ['task' => $task]) }}" method="post">
+                                @csrf
+                                <button type="submit" class="sbtn sbtn-blue">В работу</button>
+                            </form>
+                            @endif
                         </div>
 
-                        @if($task->expired)
+                        @if($task->expired && $task->deadline_at)
                             <div class="task-expired-message">
                                 <div class="message-form message-error">
                                     Крайний срок выполнения задачи истек {{ $task->deadline_at->diffForHumans() }}.

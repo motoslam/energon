@@ -22,7 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('photo')->nullable();
             $table->boolean('show_detail_company')->default(false);
+            $table->text("settings");
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

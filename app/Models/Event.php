@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Filters\QueryFilter;
+use App\Filters\EventFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -45,9 +46,22 @@ class Event extends Model
         return $templates[$this->attachable_type] ?? '';
     }
 
-    public function scopeFilter(Builder $builder, QueryFilter $filters)
+    public function scopeType($query, $type)
     {
-        return $filters->apply($builder);
+        return $query->whereHasMorph(
+            'attachable',
+            $type
+        )->orWhereNull('attachable_id');
+    }
+
+    public function scopeSince($query, $timestamp)
+    {
+        return $query->whereDate('created_at', '>=', $timestamp);
+    }
+
+    public function scopeTo($query, $timestamp)
+    {
+        return $query->whereDate('created_at', '<=', $timestamp);
     }
 
 }

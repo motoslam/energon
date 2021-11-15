@@ -18,15 +18,17 @@ class Feed extends Component
     public $company;
     public $events;
 
-    public $filterType;
-    public $filterFromDate;
-    public $filterToDate;
+    public $type;
+    public $from;
+    public $to;
+
 
     protected $listeners = ['eventAdded', 'setFilterType', 'InputEvent'];
+
     protected $queryString = [
-        'filterType' => ['except' => ''],
-        'filterFromDate' => ['except' => ''],
-        'filterToDate' => ['except' => ''],
+        'type' => ['except' => ''],
+        'from' => ['except' => ''],
+        'to' => ['except' => ''],
     ];
 
     protected $classNames = [
@@ -40,30 +42,38 @@ class Feed extends Component
     public function mount($company)
     {
         $this->company = $company;
-        $this->events = $company->events;
+        $this->prepare();
     }
 
     public function prepare()
     {
-        $this->events = Event::where('company_id', $this->company->id)
-            ->whereHasMorph(
-                'attachable',
-                $this->classNames[$this->filterCategory],
-                function (Builder $query) {
-                    $query->whereBetween('created_at', [
-                        $this->filterFromDate,
-                        $this->filterToDate
-                    ]);
-                }
-            )->latest()->get();
+        $query = Event::where('company_id', $this->company->id);
+        if ($this->type) {
+            $query->type($this->classNames[$this->type]);
+        }
+        if ($this->from && strtotime($this->from) !== false) {
+            $query->since($this->from);
+        }
+        if ($this->to && strtotime($this->to) !== false) {
+            $query->to($this->to);
+        }
+        $this->events = $query->latest()->get();
     }
 
     public function setFilterType($type)
     {
         if (array_key_exists($type, $this->classNames)) {
-            $this->filterType = $type;
+            $this->type = $type;
         } else {
-            $this->filterType = null;
+            $this->type = null;
+        }
+        $this->prepare();
+    }
+
+    public function updated($name, $value)
+    {
+        if($name == 'from' || $name == 'to') {
+            $this->prepare();
         }
     }
 

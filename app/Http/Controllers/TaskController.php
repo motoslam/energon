@@ -59,4 +59,11 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index')->with('success', 'Задача успешно удалена');
     }
+
+    public function go(Task $task)
+    {
+        $task->task_status_id = 2;
+        $task->save();
+        return redirect()->route('tasks.show', ['task' => $task])->with('success', 'Задача в работе');
+    }
 }
